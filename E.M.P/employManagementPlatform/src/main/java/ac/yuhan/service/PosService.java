@@ -1,5 +1,7 @@
 package ac.yuhan.service;
 
-public interface PosService {
+import ac.yuhan.domain.Pos;
 
+public interface PosService {
+	public Pos getPos(Long posNo);
 }

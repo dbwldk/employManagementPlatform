@@ -1,5 +1,9 @@
 package ac.yuhan.service;
 
-public interface DeptService {
+import ac.yuhan.domain.Dept;
 
+public interface DeptService {
+	public Dept getDept(Long deptNo);
+	public void insertDept(Dept dept);
+	public void deleteDept(Long deptNo);
 }

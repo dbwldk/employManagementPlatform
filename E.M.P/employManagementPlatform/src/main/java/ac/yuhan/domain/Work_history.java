@@ -3,9 +3,8 @@ package ac.yuhan.domain;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
@@ -13,10 +12,11 @@ import lombok.Data;
 @Entity
 public class Work_history {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private int h_key;
-	private String h_num;
+	private Long h_key;
+	@Column(name = "h_num")
+	private String hnum;
 	private Date h_date;
-	private int h_state;
+	@Column(name = "h_state")
+	private int hstate;
 	private String h_comment;
 }

@@ -8,6 +8,7 @@ public class EmployManagementPlatformApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EmployManagementPlatformApplication.class, args);
+		
 	}
 
 }

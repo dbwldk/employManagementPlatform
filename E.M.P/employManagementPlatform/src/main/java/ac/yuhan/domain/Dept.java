@@ -9,6 +9,6 @@ import lombok.Data;
 @Entity
 public class Dept {
 	@Id
-	private int d_num;
+	private Long d_num;
 	private String d_name;
 }
