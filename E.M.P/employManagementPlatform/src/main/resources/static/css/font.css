@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+/*폰트*/
+			/*g마켓 산스*/
+			@font-face {
+						    font-family: 'GmarketSansLight';
+						    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+						    font-weight: normal;
+						    font-style: normal;
+						}
+
+			@font-face {
+						    font-family: 'GmarketSansMedium';
+						    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+						    font-weight: normal;
+						    font-style: normal;
+						}
+			
+			@font-face {
+						    font-family: 'GmarketSansBold';
+						    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+						    font-weight: normal;
+						    font-style: normal;
+						}
+						
+			/*orbit*/
+			@font-face {
+						    font-family: 'Orbit-Regular';
+						    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/Orbit-Regular.woff2') format('woff2');
+						    font-weight: normal;
+						    font-style: normal;
+						}
+						
+						
+			/*스위트*/
+			@font-face {
+						    font-family: 'SUITE-Regular';
+						    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+						    font-weight: 400;
+						    font-style: normal;
+						}
+						
+			
+			/*오뮤 다이쁨*/
+			@font-face {
+						    font-family: 'omyu_pretty';
+						    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+						    font-weight: normal;
+						    font-style: normal;
+						}

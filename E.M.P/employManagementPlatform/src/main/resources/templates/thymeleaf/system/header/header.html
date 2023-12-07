@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		
+		<!-- 외부 css -->
+		<link rel="stylesheet" href="/css/font.css"> <!-- 폰트 css -->
+		<link rel="stylesheet" href="/css/header.css"> <!-- 헤더 css -->
+		
+		<style>
+			body {
+				margin: 0; padding: 0;
+			}
+		</style>
+	</head>
+	
+	<body th:fragment="fragment-header">
+		
+		<div id="header">
+			<div class="logoNmenu"> <!-- 버튼과 간격 벌리기 위해 -->
+				
+				<!-- 로고 -->
+				<div class="header_logo">
+					<a href="#"><img src="/imgs/logo/logo.png"></a>
+				</div>
+				
+				<!-- 메뉴 목록 -->
+				<div class="menu_list"> 
+					<ul>
+						<!-- 근무 -->
+						<li>
+							<div class="menu">
+								<a href="#"><img src="/imgs/header/menu/menu_work.png"></a>
+							</div>
+						</li>
+						
+						<!-- 내 정보 -->
+						<li>
+							<div class="menu">
+								<a href="#"><img src="/imgs/header/menu/menu_my_info.png"></a>
+							</div>
+						</li>
+						
+						<!-- th:if로 관리자 권한 확인해서 아래 메뉴 표출 -->
+						
+						<!-- 사원 -->
+						<li>
+							<div class="menu">
+								<a href="#"><img src="/imgs/header/menu/menu_emp.png"></a>
+							</div>
+						</li>
+						
+						<!-- 부서 -->
+						<li>
+							<div class="menu">
+								<a href="#"><img src="/imgs/header/menu/menu_pos.png"></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+			
+			
+			<!-- 이름 + 출퇴근 버튼 -->
+			<div class="work_ck">
+				<div class="user_name">name 님,</div> <!-- th:text로 고치기 -->
+				
+				<!-- 출근 버튼 -->
+				<div class="btn_work_ck"> <!-- th:if로 출근 가능일 때 나오게 -->
+					<button onclick="location.href='#'"><img src="/imgs/header/btn/btn_arrived.png"></button>
+				</div>
+				
+				<!-- 퇴근 버튼 -->
+				<div class="btn_work_ck"> <!-- th:if로 퇴근 가능일 때 나오게 -->
+					<button onclick="location.href='#'"><img src="/imgs/header/btn/btn_left.png"></button>
+				</div>
+				
+				<!-- 출근 버튼(disable) -->
+				<div class="btn_work_ck_dis"> <!-- th:if로 퇴근 이후 ~ 당일 나오게 -->
+					<button disabled><img src="/imgs/header/btn/btn_arrived.png"></button>
+				</div>
+			</div>
+			
+			
+		</div>
+	</body>
+</html>
