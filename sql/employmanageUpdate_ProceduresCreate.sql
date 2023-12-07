@@ -1,4 +1,3 @@
-DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `employmanageUpdate`()
 employmanageUpdate:BEGIN
     -- 현재 시간과 날짜를 저장하기 위한 변수
@@ -13,6 +12,8 @@ employmanageUpdate:BEGIN
     DECLARE max_key INT;
     -- 현재 재직 중인 사원인지 확인하기 위한 변수
     DECLARE e_tenure INT;
+    
+    DECLARE e_daily_off INT;
     
     -- employ에서 e_num을 받아오는 부분
 	DECLARE employ_cur CURSOR FOR SELECT e_num FROM employ;
@@ -47,6 +48,12 @@ employmanageUpdate:BEGIN
         SELECT e_s_state INTO e_tenure FROM employ_state WHERE e_s_num = em_num;
         
         IF e_tenure = 0 THEN
+        
+			SELECT e_now INTO e_daily_off FROM employ_now WHERE e_num = em_num;
+            IF e_daily_off = 1 THEN
+				INSERT INTO work_history (h_key, h_num, h_date, h_state) VALUES (max_key, em_num, current_datetime, 2);
+                set max_key = max_key + 1;
+            END IF;
 			-- work_history 업데이트
 			-- work_history에 오늘의 출근 기록 결근 상태로 넣음
 			INSERT INTO work_history (h_key, h_num, h_date, h_state) VALUES (max_key, em_num, current_datetime, 0);
@@ -62,5 +69,4 @@ employmanageUpdate:BEGIN
     END LOOP;
 	
     CLOSE employ_cur;
-END$$
-DELIMITER ;
+END

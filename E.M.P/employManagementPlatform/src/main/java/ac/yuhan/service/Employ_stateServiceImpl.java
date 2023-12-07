@@ -24,6 +24,7 @@ public class Employ_stateServiceImpl implements Employ_stateService {
 		}
 		else return null;
 	}
+	
 	@Override
 	public void insertEmploy_state(UnitedEmploy employInfo) {
 		Employ_state employ_state = new Employ_state();
