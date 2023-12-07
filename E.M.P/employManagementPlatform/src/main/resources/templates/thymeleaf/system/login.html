@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>E.M.P > login</title>
+		
+		<!-- 외부 css -->
+		<link rel="stylesheet" href="/css/font.css"> <!-- 폰트 css -->
+		<link rel="stylesheet" href="/css/login.css"> <!-- 폰트 css -->
+		
+	</head>
+	
+	<body>
+		<div id="content">
+			<div class="wrap_box">
+				
+				<div class="wrap">
+					
+					<!-- 로고 -->
+					<div class="login_logo">
+						<img src="/imgs/logo/logo_with_des.png">
+					</div>
+					
+					<!-- form -->
+					<form action ="#" method = "post">
+						<!-- 사번 input -->
+						<input type="text" placeholder="사번을 입력해주세요.">
+						
+						<!-- 비번 input -->
+						<input type="password" placeholder="비밀번호를 입력해주세요.">
+						
+						<!-- 로그인 버튼 -->
+						<button type="submit"><img src="/imgs/btn/btn_login.png"></button>
+					</form>
+					
+				</div>
+				
+			</div>
+		</div>
+	</body>
 </html>
