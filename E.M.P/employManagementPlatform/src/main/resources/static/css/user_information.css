@@ -249,6 +249,16 @@
 				font-size: 20px;
 			}
 			
+			#office_tb select {
+				width: 200px;
+				height: 40px;
+				
+				text-align: center;
+				
+				font-family: 'SUITE-Regular';
+				font-size: 20px;
+			}
+			
 			/* 버튼 영역*/
 			.emp_btns {
 				width: 100%;
@@ -266,7 +276,7 @@
 				display: flex;
 			}
 			
-			button {
+			.btn_save, .btn_edit, .btn_cancel {
 				width: 120px;
 				height: 60px;
 				
@@ -275,13 +285,26 @@
 				align-items: center;
 			}
 			
-			button > img {
+			.btn_save > img, .btn_edit > img, .btn_cancel > img {
 				width: 120px;
 				height: 60px;
 			}
 			
+			.btn_pwd {
+				width: 210px;
+				height: 60px;
+				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
 			
-			.btn_save {
+			.btn_pwd > img {
+				width: 210px;
+				height: 60px;
+			}
+			
+			.btn_save, .btn_edit, .btn_pwd {
 				margin-right: 25px;
 				box-shadow: 5px 5px 5px #7c715a; /*배경색에 흰색 10% 섞은 색*/
 			}
