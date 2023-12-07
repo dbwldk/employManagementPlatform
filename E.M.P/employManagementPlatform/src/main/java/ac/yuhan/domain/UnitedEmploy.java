@@ -8,8 +8,8 @@ import lombok.Data;
 public class UnitedEmploy {
 	private String e_num;
 	private String e_name;
-	private int e_dept_num;
-	private int e_pos_num;
+	private Long e_dept_num;
+	private Long e_pos_num;
 	private int e_gender;
 	private String e_phone;
 	private String e_addr;

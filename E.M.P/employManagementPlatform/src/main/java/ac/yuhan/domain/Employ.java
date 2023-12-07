@@ -13,8 +13,8 @@ public class Employ {
 	@Id
 	private String e_num;
 	private String e_name;
-	private int e_dept;
-	private int e_pos;
+	private Long e_dept;
+	private Long e_pos;
 	private int e_gender;
 	private String e_phone;
 	private String e_addr;
