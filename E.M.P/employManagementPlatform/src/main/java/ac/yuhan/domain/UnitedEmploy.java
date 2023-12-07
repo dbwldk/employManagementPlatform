@@ -17,8 +17,10 @@ public class UnitedEmploy {
 	private Date e_birth;
 	private String e_pic;
 	private String e_pswd;
+	
 	private Date e_sdate;
 	private Date e_edate;
 	private int e_state;
+	
 	private int e_now;
 }
