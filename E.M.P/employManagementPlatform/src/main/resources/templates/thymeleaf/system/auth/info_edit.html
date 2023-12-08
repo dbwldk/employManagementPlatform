@@ -34,7 +34,8 @@
 								
 								<!-- 사진 업로드 -->
 								<div class="pic_upload_container">
-									<input type="file" name="uplodaFile" accept="image/*">
+									<input type="file" name="uploadFile" accept="image/*">
+									<input type="hidden" name="e_pic" th:value="${unitedEmploy.e_pic}">
 								</div>
 								
 							</div>
@@ -49,7 +50,7 @@
 									<tr>
 										<th>사번: </th>
 										<td>
-											<input type="text" name="e_num" th:value="${unitedEmploy.e_num}" disabled>
+											<input type="text" name="e_num" th:value="${unitedEmploy.e_num}" readonly>
 											<input type="hidden" name="e_pswd"th:value="${unitedEmploy.e_pswd}">
 										</td>
 									</tr>
@@ -67,8 +68,8 @@
 										<th>부서: </th>
 										<td>
 											<select name="e_dept_num"> <!-- th:field 설정 -->
-												<option th:value="${unitedEmploy.e_dept_num}"  name="e_dept_num" disabled hidden selected>-- 부서 --</option>
-												<option th:each="dept:${deptList}" th:text="${dept.d_name}" th:value="${dept.d_num}" name="e_dept_num"></option>"
+												<option th:value="${unitedEmploy.e_dept_num}"  name="e_dept_num" readonly hidden selected>-- 부서 --</option>
+												<option th:each="dept:${deptList}" th:text="${dept.d_name}" th:value="${dept.d_num}" name="e_dept_num" th:attr="selected=${dept.d_num == unitedEmploy.e_dept_num}"></option>"
 												<!-- 아래에 th:each로 option 만들기, th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
 											</select>
 										</td>
@@ -79,8 +80,8 @@
 										<th>직급: </th>
 										<td>
 											<select name="e_pos_num"> <!-- th:field 설정 -->
-												<option th:value="${unitedEmploy.e_pos_num}" name="e_pos_num" disabled hidden selected>-- 직급 --</option>
-												<option th:each="pos : ${posList}" th:text="${pos.p_name}" th:value="${pos.p_num}" name="e_pos_num"></option>
+												<option th:value="${unitedEmploy.e_pos_num}" name="e_pos_num" readonly hidden selected>-- 직급 --</option>
+												<option th:each="pos : ${posList}" th:text="${pos.p_name}" th:value="${pos.p_num}" name="e_pos_num" th:attr="selected=${pos.p_num == unitedEmploy.e_pos_num}"></option>
 												<!-- 아래에 th:each로 option 만들기
 												th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
 											</select>
@@ -122,15 +123,11 @@
 								<tr>
 									<th>성별: </th>
 									<td>
-										<input name="e_gender" type="radio" id="male_ck" checked/>
-										<label for="male_ck">남자</label>
+										<label th:if="${unitedEmploy.e_gender == 0}" name="e_gender">남자</label>
 										
-										<input name="e_gender" type="radio" id="female_ck" />
-										<label for="female_ck">여자</label>
+										<label th:if="${unitedEmploy.e_gender == 1}" name="e_gender">여자</label>
 										
-										<input name="e_gender" type="radio" id="other_ck" />
-										<label for="other_ck">기타</label>
-										
+										<label th:if="${unitedEmploy.e_gender == 2}" name="e_gender">기타</label>
 									</td>
 								</tr>
 								
@@ -143,7 +140,7 @@
 										th:max="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
 										min="1800-01-01"
 										name="e_birth_string"
-										disabled>
+										readonly>
 									</td>
 								</tr>
 									
@@ -177,7 +174,7 @@
 										th:max="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
 										min="1800-01-01"
 										name="e_sdate_string"
-										disabled
+										readonly
 										>
 									</td>
 								</tr>
