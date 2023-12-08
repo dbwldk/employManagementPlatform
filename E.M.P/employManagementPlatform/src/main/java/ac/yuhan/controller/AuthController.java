@@ -151,6 +151,12 @@ public class AuthController {
 					List<Pos> posList = posService.getAllPos();
 					model.addAttribute("deptList", deptList);
 					model.addAttribute("posList", posList);
+					
+					Dept dept = deptService.getDept(unitedEmploy.getE_dept_num());
+					Pos pos = posService.getPos(unitedEmploy.getE_pos_num());
+					
+					model.addAttribute("employDept", dept);
+					model.addAttribute("employPos", pos);
 		
 					return "/auth/info_edit";
 				}

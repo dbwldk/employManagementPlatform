@@ -33,11 +33,11 @@
 								</div>
 								
 								<!-- 사진 업로드 -->
-								<div class="pic_upload_container">
+								<div class="pic_upload_container" th:style="${unitedEmploy.e_state == 1} ? 'display:none;' : ''">
 									<input type="file" name="uploadFile" accept="image/*">
-									<input type="hidden" name="e_pic" th:value="${unitedEmploy.e_pic}">
+									
 								</div>
-								
+								<input type="hidden" name="e_pic" th:value="${unitedEmploy.e_pic}">
 							</div>
 							
 							<!-- 기본 정보 -->	
@@ -59,32 +59,40 @@
 									<tr>
 										<th>이름: </th>
 										<td>
-											<input type="text" name="e_name" th:value="${unitedEmploy.e_name}">
+											<input type="text" name="e_name" th:value="${unitedEmploy.e_name}" th:readonly="${unitedEmploy.e_state == 1}">
 										</td>
 									</tr>
 									
 									<!-- 부서 -->
 									<tr>
 										<th>부서: </th>
-										<td>
+										<td th:if="${unitedEmploy.e_state == 0}">
 											<select name="e_dept_num"> <!-- th:field 설정 -->
 												<option th:value="${unitedEmploy.e_dept_num}"  name="e_dept_num" readonly hidden selected>-- 부서 --</option>
 												<option th:each="dept:${deptList}" th:text="${dept.d_name}" th:value="${dept.d_num}" name="e_dept_num" th:attr="selected=${dept.d_num == unitedEmploy.e_dept_num}"></option>"
 												<!-- 아래에 th:each로 option 만들기, th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
 											</select>
 										</td>
+										<td th:if="${unitedEmploy.e_state == 1}">
+										<input type="hidden" th:value="${unitedEmploy.e_dept_num}" name="e_dept_num">
+										<input type="text" th:value="${employDept.d_name}" readonly>
+										</td>
 									</tr>
 									
 									<!-- 직급 -->
 									<tr>
 										<th>직급: </th>
-										<td>
+										<td th:if="${unitedEmploy.e_state == 0}">
 											<select name="e_pos_num"> <!-- th:field 설정 -->
 												<option th:value="${unitedEmploy.e_pos_num}" name="e_pos_num" readonly hidden selected>-- 직급 --</option>
 												<option th:each="pos : ${posList}" th:text="${pos.p_name}" th:value="${pos.p_num}" name="e_pos_num" th:attr="selected=${pos.p_num == unitedEmploy.e_pos_num}"></option>
 												<!-- 아래에 th:each로 option 만들기
 												th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
 											</select>
+										</td>
+										<td th:if="${unitedEmploy.e_state == 1}">
+										<input type="hidden" th:value="${unitedEmploy.e_pos_num}" name="e_pos_num">
+										<input type="text" th:value="${employPos.p_name}" readonly>
 										</td>
 									</tr>
 								</table>
@@ -107,7 +115,7 @@
 								<tr>
 									<th>이메일: </th>
 									<td>
-										<input type="email" name="e_email" th:value="${unitedEmploy.e_email}">
+										<input type="email" name="e_email" th:value="${unitedEmploy.e_email}" th:readonly="${unitedEmploy.e_state == 1}">
 									</td>
 								</tr>
 									
@@ -115,7 +123,7 @@
 								<tr>
 									<th>휴대폰: </th>
 									<td>
-										<input type="tel" placeholder=" - 없이 입력하세요." name="e_phone" th:value="${unitedEmploy.e_phone}">
+										<input type="tel" placeholder=" - 없이 입력하세요." name="e_phone" th:value="${unitedEmploy.e_phone}" th:readonly="${unitedEmploy.e_state == 1}">
 									</td>
 								</tr>
 									
@@ -151,7 +159,7 @@
 								<tr>
 									<th>주소: </th>
 									<td>
-										<input type="text" name="e_addr" th:value="${unitedEmploy.e_addr}">
+										<input type="text" name="e_addr" th:value="${unitedEmploy.e_addr}" th:readonly="${unitedEmploy.e_state == 1}">
 									</td>
 								</tr>
 							</table>
@@ -197,7 +205,7 @@
 									</td>
 								</tr>
 									<!-- 퇴사일자 -->
-								<tr th:if="${unitedEmploy.e_edate != null}">
+								<tr th:if="${unitedEmploy.e_state == 1}">
 									<th>퇴사일자: </th>
 									<td>
 										<input type="date" 
