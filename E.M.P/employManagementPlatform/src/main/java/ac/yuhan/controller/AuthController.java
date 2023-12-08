@@ -27,6 +27,7 @@ import ac.yuhan.service.Employ_PicSaveStorage;
 import ac.yuhan.service.Employ_nowService;
 import ac.yuhan.service.Employ_stateService;
 import ac.yuhan.service.PosService;
+import ac.yuhan.service.UnitedEmployService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -46,6 +47,9 @@ public class AuthController {
 	
 	@Autowired
 	private Employ_stateService employ_stateService;
+	
+	@Autowired
+	private UnitedEmployService unitedEmployService;
 	
 	@Autowired
 	private Employ_PicSaveStorage storageServce;
@@ -80,37 +84,31 @@ public class AuthController {
 			UnitedEmploy sessionUnitedEmploy = (UnitedEmploy)session.getAttribute("unitedEmploy");
 			if(sessionUnitedEmploy.getE_dept_num() >= 1 && sessionUnitedEmploy.getE_dept_num() <= 9 )
 			{
-				unitedEmploy.setE_birth(e_birth);
-				unitedEmploy.setE_sdate(e_sdate);
-				if(!uploadFile.isEmpty())
+				Employ findEmploy = employService.getEmploy(unitedEmploy);
+				if(findEmploy == null)
 				{
-					storageServce.saveFile(uploadFile);
-					unitedEmploy.setE_pic("/imgs/img/" + uploadFile.getOriginalFilename());
-				}
-				else
-				{
-					unitedEmploy.setE_pic("/imgs/img/normal.png");
-				}
-				unitedEmploy.setE_pswd("0000");
+					unitedEmploy.setE_birth(e_birth);
+					unitedEmploy.setE_sdate(e_sdate);
+					if(!uploadFile.isEmpty())
+					{
+						storageServce.saveFile(uploadFile);
+						unitedEmploy.setE_pic("/imgs/img/" + uploadFile.getOriginalFilename());
+					}
+					else
+					{
+						unitedEmploy.setE_pic("/imgs/img/normal.png");
+					}
+					unitedEmploy.setE_pswd("0000");
+					
+					Employ employ = employService.createEmploy(unitedEmploy);
+					
+					employService.insertEmploy(employ);
+					employ_nowService.insertEmploy_now(unitedEmploy);
+					employ_stateService.insertEmploy_state(unitedEmploy);
 				
-				Employ employ = new Employ();
-				employ.setE_num(unitedEmploy.getE_num());
-				employ.setE_addr(unitedEmploy.getE_addr());
-				employ.setE_birth(unitedEmploy.getE_birth());
-				employ.setE_dept(unitedEmploy.getE_dept_num());
-				employ.setE_email(unitedEmploy.getE_email());
-				employ.setE_gender(unitedEmploy.getE_gender());
-				employ.setE_name(unitedEmploy.getE_name());
-				employ.setE_phone(unitedEmploy.getE_phone());
-				employ.setE_pic(unitedEmploy.getE_pic());
-				employ.setE_pos(unitedEmploy.getE_pos_num());
-				employ.setE_pswd(unitedEmploy.getE_pswd());
-				
-				employService.insertEmploy(employ);
-				employ_nowService.insertEmploy_now(unitedEmploy);
-				employ_stateService.insertEmploy_state(unitedEmploy);
-			
-				return "/normal/emp_list";
+					return "/auth/emp_list";
+				}
+				return "/auth/emp_list";
 			}
 			return "/login";
 		}
@@ -130,6 +128,11 @@ public class AuthController {
 				if(findEmploy != null)
 				{
 					unitedEmploy.setE_pic(findEmploy.getE_pic());
+					
+					Employ_now employ_now = employ_nowService.getEmploy_now(unitedEmploy);
+					Employ_state employ_state = employ_stateService.getEmploy_state(unitedEmploy);
+		
+					unitedEmploy = unitedEmployService.createUnitedEmploy(findEmploy, employ_now, employ_state);
 					if(findEmploy.getE_pic() != null)
 					{
 						File existFile = new File(uploadDirectory + unitedEmploy.getE_pic().substring(10));
@@ -140,38 +143,17 @@ public class AuthController {
 							unitedEmploy.setE_pic(findEmploy.getE_pic());
 				        }
 					}
-					Employ_now employ_now = employ_nowService.getEmploy_now(unitedEmploy);
-					Employ_state employ_state = employ_stateService.getEmploy_state(unitedEmploy);
-		
-					unitedEmploy.setE_pswd(findEmploy.getE_pswd());
-					unitedEmploy.setE_addr(findEmploy.getE_addr());
-					unitedEmploy.setE_birth(findEmploy.getE_birth());
-					unitedEmploy.setE_dept_num(findEmploy.getE_dept());
-					unitedEmploy.setE_email(findEmploy.getE_email());
-					unitedEmploy.setE_gender(findEmploy.getE_gender());
-					unitedEmploy.setE_name(findEmploy.getE_name());
-					unitedEmploy.setE_now(employ_now.getE_now());
-					unitedEmploy.setE_phone(findEmploy.getE_phone());
-					unitedEmploy.setE_pos_num(findEmploy.getE_pos());
-		
 					employService.updateEmploy(unitedEmploy);
-					
-					unitedEmploy.setE_now(employ_now.getE_now());
-					
-					unitedEmploy.setE_edate(employ_state.getE_s_edate());
-					unitedEmploy.setE_sdate(employ_state.getE_s_sdate());
-					unitedEmploy.setE_state(employ_state.getE_s_state());
 					model.addAttribute("unitedEmploy", unitedEmploy);
 		
 					List<Dept> deptList = deptService.getAllDept();
 					List<Pos> posList = posService.getAllPos();
 					model.addAttribute("deptList", deptList);
 					model.addAttribute("posList", posList);
-					System.out.println(unitedEmploy.toString());
 		
 					return "/auth/info_edit";
 				}
-				return "/normal/emp_list";
+				return "/auth/emp_list";
 			}
 			return "/login";
 		}
@@ -206,13 +188,12 @@ public class AuthController {
 				}
 				
 				employService.updateEmploy(unitedEmploy);
-				System.out.println(unitedEmploy.toString());
 				if(unitedEmploy.getE_state() == 1)
 				{
 					employ_stateService.updateEmploy_state(unitedEmploy);
 				}
-			
-				return "/normal/emp_list";
+				
+				return "/auth/emp_list";
 			}
 			return "/login";
 		}

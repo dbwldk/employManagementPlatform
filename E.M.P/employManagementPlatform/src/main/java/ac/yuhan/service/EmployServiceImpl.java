@@ -38,9 +38,28 @@ public class EmployServiceImpl implements EmployService {
 		
 		employRepo.save(findEmploy);
 	}
+	
+	
 	@Override
 	public void insertEmploy(Employ employ) {
 		employRepo.save(employ);
+	}
+	
+	@Override
+	public Employ createEmploy(UnitedEmploy employInfo) {
+		Employ employ = new Employ();
+		employ.setE_num(employInfo.getE_num());
+		employ.setE_addr(employInfo.getE_addr());
+		employ.setE_birth(employInfo.getE_birth());
+		employ.setE_dept(employInfo.getE_dept_num());
+		employ.setE_email(employInfo.getE_email());
+		employ.setE_gender(employInfo.getE_gender());
+		employ.setE_name(employInfo.getE_name());
+		employ.setE_phone(employInfo.getE_phone());
+		employ.setE_pic(employInfo.getE_pic());
+		employ.setE_pos(employInfo.getE_pos_num());
+		employ.setE_pswd(employInfo.getE_pswd());
+		return employ;
 	}
 
 }

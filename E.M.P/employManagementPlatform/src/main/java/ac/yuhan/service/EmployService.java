@@ -12,4 +12,5 @@ public interface EmployService {
 	public void updateEmploy(UnitedEmploy employInfo);
 	@Modifying(clearAutomatically = true)
 	public void insertEmploy(Employ employ);
+	public Employ createEmploy(UnitedEmploy employInfo); 
 }

@@ -17,7 +17,7 @@
 		<div id="content">
 			<div class="wrap">
 				
-				<form action="#" method="post" enctype="multipart/form-data">
+				<form action="info_edit" method="post" enctype="multipart/form-data">
 					
 					<!-- 사진, 기본 정보 wrap -->
 					<div class="picNnormal_info_wrap">
@@ -28,7 +28,7 @@
 							<div class="pic_container">
 								
 								<!-- 사진 프리뷰 담을 박스 -->
-								<div class="pic_preview"></div>
+								<div class="pic_preview" th:style="'background-image:url(' + ${unitedEmploy.e_pic} +');'"></div>
 								
 								<!-- 사진 업로드 -->
 								<div class="pic_upload_container">
@@ -47,7 +47,7 @@
 									<tr>
 										<th>사번: </th>
 										<td>
-											<input type="text" disabled> <!-- th:value값 db에서 받아서 수정하기 -->
+											<input type="text" th:value="${unitedEmploy.e_num}" disabled> <!-- th:value값 db에서 받아서 수정하기 -->
 										</td>
 									</tr>
 									
@@ -55,7 +55,7 @@
 									<tr>
 										<th>이름: </th>
 										<td>
-											<input type="text" disabled> <!-- th:value값 db에서 받아서 수정하기 -->
+											<input type="text" th:value="${unitedEmploy.e_name}"  disabled> <!-- th:value값 db에서 받아서 수정하기 -->
 										</td>
 									</tr>
 									
@@ -63,10 +63,7 @@
 									<tr>
 										<th>부서: </th>
 										<td>
-											<select name="dept" disabled> <!-- th:field 설정 -->
-												<option value="0" disabled hidden selected>-- 부서 --</option>
-												<!-- 아래에 th:each로 option 만들기, th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
-											</select>
+											<input type="text" th:value="${employDept.d_name}"  disabled> 
 										</td>
 									</tr>
 									
@@ -74,11 +71,7 @@
 									<tr>
 										<th>직급: </th>
 										<td>
-											<select name="pos" disabled> <!-- th:field 설정 -->
-												<option value="0" disabled hidden selected>-- 직급 --</option>
-												<!-- 아래에 th:each로 option 만들기
-												th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
-											</select>
+											<input type="text" th:value="${employPos.p_name}"  disabled> 
 										</td>
 									</tr>
 								</table>
@@ -101,7 +94,7 @@
 								<tr>
 									<th>이메일: </th>
 									<td>
-										<input type="email">
+										<input type="email" th:value="${unitedEmploy.e_email}" name="e_email">
 									</td>
 								</tr>
 									
@@ -109,7 +102,7 @@
 								<tr>
 									<th>휴대폰: </th>
 									<td>
-										<input type="tel" placeholder=" - 없이 입력하세요.">
+										<input type="tel" placeholder=" - 없이 입력하세요." th:value="${unitedEmploy.e_phone}" name="e_phone">
 									</td>
 								</tr>
 									
@@ -117,14 +110,14 @@
 								<tr>
 									<th>성별: </th>
 									<td>
-										<input type="radio" id="male_ck" disabled/>
-										<label for="male_ck">남자</label>
+										<input type="radio" th:if="${unitedEmploy.e_gender == 0}" checked>
+										<label th:if="${unitedEmploy.e_gender == 0}" >남자</label>
 										
-										<input type="radio" id="female_ck" disabled/>
-										<label for="female_ck">여자</label>
+										<input type="radio" th:if="${unitedEmploy.e_gender == 1}" checked>
+										<label th:if="${unitedEmploy.e_gender == 1}" >여자</label>
 										
-										<input type="radio" id="other_ck" disabled/>
-										<label for="other_ck">기타</label>
+										<input type="radio" th:if="${unitedEmploy.e_gender == 2}" checked>
+										<label th:if="${unitedEmploy.e_gender == 2}" >기타</label>
 										
 									</td>
 								</tr>
@@ -134,9 +127,10 @@
 									<th>생일: </th>
 									<td>
 										<input type="date" 
-										th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
+										th:value="${#dates.format(unitedEmploy.e_birth,'yyyy-MM-dd')}"
 										th:max="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
 										min="1800-01-01"
+										name="e_birth_string"
 										disabled> <!-- th:value값 db에서 받아서 수정하기 -->
 									</td>
 								</tr>
@@ -145,7 +139,7 @@
 								<tr>
 									<th>주소: </th>
 									<td>
-										<input type="text" disabled> <!-- th:value값 db에서 받아서 수정하기 -->
+										<input type="text" name="e_addr" th:value="${unitedEmploy.e_addr}" disabled> <!-- th:value값 db에서 받아서 수정하기 -->
 									</td>
 								</tr>
 							</table>
