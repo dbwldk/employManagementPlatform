@@ -1,5 +1,6 @@
 package ac.yuhan.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +35,9 @@ public class DeptServiceImpl implements DeptService {
 		deptRepo.deleteById(deptNo);
 	}
 
+	@Override
+	public List<Dept> getAllDept() {
+		List<Dept> deptList = deptRepo.findAll();
+		return deptList; 
+	}
 }

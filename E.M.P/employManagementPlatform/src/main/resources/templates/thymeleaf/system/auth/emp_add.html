@@ -17,7 +17,7 @@
 		<div id="content">
 			<div class="wrap">
 				
-				<form action="#" method="post" enctype="multipart/form-data">
+				<form action="/add" method="post" enctype="multipart/form-data">
 					
 					<!-- 사진, 기본 정보 wrap -->
 					<div class="picNnormal_info_wrap">
@@ -32,7 +32,7 @@
 								
 								<!-- 사진 업로드 -->
 								<div class="pic_upload_container">
-									<input type="file" name="" accept="image/*">
+									<input type="file" name="uploadFile" accept="image/*">
 								</div>
 								
 							</div>
@@ -47,7 +47,7 @@
 									<tr>
 										<th>사번: </th>
 										<td>
-											<input type="text">
+											<input type="text" name = "e_num">
 										</td>
 									</tr>
 									
@@ -55,7 +55,7 @@
 									<tr>
 										<th>이름: </th>
 										<td>
-											<input type="text">
+											<input type="text" name="e_name">
 										</td>
 									</tr>
 									
@@ -63,8 +63,9 @@
 									<tr>
 										<th>부서: </th>
 										<td>
-											<select name="dept"> <!-- th:field 설정 -->
+											<select name="e_dept_num"> <!-- th:field 설정 -->
 												<option value="0" disabled hidden selected>-- 부서 --</option>
+												<option th:each="dept:${deptList}" th:text="${dept.d_name}" th:value="${dept.d_num}" name="e_dept_num"></option>"
 												<!-- 아래에 th:each로 option 만들기, th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
 											</select>
 										</td>
@@ -74,8 +75,9 @@
 									<tr>
 										<th>직급: </th>
 										<td>
-											<select name="pos"> <!-- th:field 설정 -->
+											<select name="e_pos_num"> <!-- th:field 설정 -->
 												<option value="0" disabled hidden selected>-- 직급 --</option>
+												<option th:each="pos : ${posList}" th:text="${pos.p_name}" th:value="${pos.p_num}" name="e_pos_num"></option>
 												<!-- 아래에 th:each로 option 만들기
 												th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
 											</select>
@@ -101,7 +103,7 @@
 								<tr>
 									<th>이메일: </th>
 									<td>
-										<input type="email">
+										<input type="email" name="e_email">
 									</td>
 								</tr>
 									
@@ -109,7 +111,7 @@
 								<tr>
 									<th>휴대폰: </th>
 									<td>
-										<input type="tel" placeholder=" - 없이 입력하세요.">
+										<input type="tel" placeholder=" - 없이 입력하세요." name="e_phone">
 									</td>
 								</tr>
 									
@@ -117,13 +119,13 @@
 								<tr>
 									<th>성별: </th>
 									<td>
-										<input type="radio" id="male_ck" checked/>
+										<input name="e_gender" value="0" type="radio" id="male_ck" checked/>
 										<label for="male_ck">남자</label>
 										
-										<input type="radio" id="female_ck" />
+										<input name="e_gender" value="1" type="radio" id="female_ck" />
 										<label for="female_ck">여자</label>
 										
-										<input type="radio" id="other_ck" />
+										<input name="e_gender" value="2" type="radio" id="other_ck" />
 										<label for="other_ck">기타</label>
 										
 									</td>
@@ -136,7 +138,8 @@
 										<input type="date" 
 										th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
 										th:max="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
-										min="1800-01-01">
+										min="1800-01-01"
+										name="e_birth_string">
 									</td>
 								</tr>
 									
@@ -144,7 +147,7 @@
 								<tr>
 									<th>주소: </th>
 									<td>
-										<input type="text">
+										<input type="text" name="e_addr">
 									</td>
 								</tr>
 							</table>
@@ -169,7 +172,8 @@
 										<input type="date" 
 										th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
 										th:max="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
-										min="1800-01-01">
+										min="1800-01-01"
+										name="e_sdate_string">
 									</td>
 								</tr>
 									

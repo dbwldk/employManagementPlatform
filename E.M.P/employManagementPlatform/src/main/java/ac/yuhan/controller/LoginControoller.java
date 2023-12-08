@@ -65,6 +65,7 @@ public class LoginControoller {
 			unitedEmploy.setE_sdate(employ_state.getE_s_sdate());
 			unitedEmploy.setE_state(employ_state.getE_s_state());
 			session.setAttribute("unitedEmploy", unitedEmploy);
+			System.out.println(unitedEmploy.toString());
 			return "/normal/work_history";
 		}
 		else

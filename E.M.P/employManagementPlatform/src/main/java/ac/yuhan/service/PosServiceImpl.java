@@ -1,5 +1,6 @@
 package ac.yuhan.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class PosServiceImpl implements PosService {
 			return findPos.get();
 		}
 		else return null;
+	}
+	@Override
+	public List<Pos> getAllPos() {
+		List<Pos> posList = posRepo.findAll();
+		return posList;
 	}
 
 }
