@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>E.M.P > 비밀번호 변경</title>
+		
+		<!-- 외부 css -->
+		<link rel="stylesheet" href="/css/font.css"> <!-- 폰트 css -->
+		<link rel="stylesheet" href="/css/pwd_change.css"> <!-- 비번 변경 폼 css -->
+		
+	</head>
+	
+	<body>
+		<div id="content">
+			
+				<div class="wrap">
+					
+					<!-- 제목 -->
+					<div class="top_lbl">비밀번호 변경</div>
+					
+					<!-- 현재 비번 확인 form -->
+					<form action ="#" method = "post">
+						<!-- 현재 비번 영역 -->
+						<div class="pwd_now_wrap">
+							
+							<div class="mid_lbl">
+								<label for="pwd_now_input">현재 비밀번호: </label>
+							</div>
+							
+							<div class="input_wrap">
+								<input type="password" placeholder="현재 비밀번호를 입력해주세요." id="pwd_now_input">
+							</div>
+							
+							<!-- 확인 버튼 -->
+							<button type="submit" id="btn_ok"><img src="/imgs/btn/share/btn_ok.png"></button>
+							
+						</div>
+					</form>
+					
+					<!-- 비번 변경 form -->
+					<form action ="#" method = "post" class="pwd_cg_f">
+						<!-- 비밀번호 영역 -->
+						<div class="pwd_wrap">
+							
+							<div class="mid_lbl">
+								<label for="pwd_input">변경 비밀번호: </label>
+							</div>
+							
+							<div class="input_wrap">
+								<input type="password" placeholder="변경할 비밀번호를 입력해주세요." id="pwd_input">
+							</div>
+							
+							
+						</div>
+						
+						<!-- 비번 확인 영역 -->
+						<div class="pwd_ck_wrap">
+							
+							<div class="mid_lbl">
+								<label for="pwd_ck_input">비밀번호 확인: </label>
+							</div>
+							
+							<div class="input_wrap">
+								<input type="password" placeholder="비밀번호 확인을 입력해주세요." id="pwd_ck_input">
+							</div>
+							
+						</div>
+						
+						<!-- 수정 버튼 -->
+						<button type="submit" id="btn_edit"><img src="/imgs/btn/share/btn_edit.png"></button>
+					</form>
+					
+				</div>
+				
+		</div>
+	</body>
+</html>
