@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>E.M.P > 사원 추가</title>
+		
+		<!-- 외부 css -->
+		<link rel="stylesheet" href="/css/font.css"> <!-- 폰트 css -->
+		<link rel="stylesheet" href="/css/header.css"> <!-- 헤더 css -->
+		<link rel="stylesheet" href="/css/user_information.css"> <!-- 사원 정보 관련 css -->
+	</head>
+	
+	<body>
+		<!-- 헤더 -->
+		<div th:replace="/header/header.html :: fragment-header"></div>
+		
+		<div id="content">
+			<div class="wrap">
+				
+				<form action="#" method="post" enctype="multipart/form-data">
+					
+					<!-- 사진, 기본 정보 wrap -->
+					<div class="picNnormal_info_wrap">
+						
+						<div class="picNnormal_info">
+							
+							<!-- 사진 -->
+							<div class="pic_container">
+								
+								<!-- 사진 프리뷰 담을 박스 -->
+								<div class="pic_preview"></div>
+								
+								<!-- 사진 업로드 -->
+								<div class="pic_upload_container">
+									<input type="file" name="" accept="image/*">
+								</div>
+								
+							</div>
+							
+							<!-- 기본 정보 -->
+							<div class="normal_info">
+								<div class="top_lbl">기본 정보</div>
+								
+								<!-- 기본 정보 테이블 -->
+								<table id="normal_tb">
+									<!-- 사번 -->
+									<tr>
+										<th>사번: </th>
+										<td>
+											<input type="text">
+										</td>
+									</tr>
+									
+									<!-- 이름 -->
+									<tr>
+										<th>이름: </th>
+										<td>
+											<input type="text">
+										</td>
+									</tr>
+									
+									<!-- 부서 -->
+									<tr>
+										<th>부서: </th>
+										<td>
+											<select name="dept"> <!-- th:field 설정 -->
+												<option value="0" disabled hidden selected>-- 부서 --</option>
+												<!-- 아래에 th:each로 option 만들기, th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
+											</select>
+										</td>
+									</tr>
+									
+									<!-- 직급 -->
+									<tr>
+										<th>직급: </th>
+										<td>
+											<select name="pos"> <!-- th:field 설정 -->
+												<option value="0" disabled hidden selected>-- 직급 --</option>
+												<!-- 아래에 th:each로 option 만들기
+												th:text(보이는 내용), th:value(넘기는 내용) 설정 -->
+											</select>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+						</div>
+						
+					</div>
+					
+					<!-- 추가 정보 wrap -->
+					<div class="additional_info_wrap">
+						
+						<!-- 추가 정보 -->
+						<div class="additional_info">
+							<div class="top_lbl">추가 정보</div>
+								
+							<!-- 추가 정보 테이블 -->
+							<table id="additional_tb">
+								<!-- 이메일 -->
+								<tr>
+									<th>이메일: </th>
+									<td>
+										<input type="email">
+									</td>
+								</tr>
+									
+								<!-- 휴대폰 -->
+								<tr>
+									<th>휴대폰: </th>
+									<td>
+										<input type="tel" placeholder=" - 없이 입력하세요.">
+									</td>
+								</tr>
+									
+								<!-- 성별 -->
+								<tr>
+									<th>성별: </th>
+									<td>
+										<input type="radio" id="male_ck" checked/>
+										<label for="male_ck">남자</label>
+										
+										<input type="radio" id="female_ck" />
+										<label for="female_ck">여자</label>
+										
+										<input type="radio" id="other_ck" />
+										<label for="other_ck">기타</label>
+										
+									</td>
+								</tr>
+								
+								<!-- 생일 -->
+								<tr>
+									<th>생일: </th>
+									<td>
+										<input type="date" 
+										th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
+										th:max="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
+										min="1800-01-01">
+									</td>
+								</tr>
+									
+								<!-- 주소 -->
+								<tr>
+									<th>주소: </th>
+									<td>
+										<input type="text">
+									</td>
+								</tr>
+							</table>
+						</div>
+						
+					</div>
+					
+					
+					<!-- 재직 정보 wrap -->
+					<div class="office_info_wrap">
+						<!-- 재직 정보 -->
+						<div class="office_info">
+							<div class="top_lbl">재직 정보</div>
+								
+							<!-- 재직 정보 테이블 -->
+							<table id="office_tb">
+								
+								<!-- 입사일자 -->
+								<tr>
+									<th>입사일자: </th>
+									<td>
+										<input type="date" 
+										th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
+										th:max="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
+										min="1800-01-01">
+									</td>
+								</tr>
+									
+							</table>
+						</div>
+					</div>
+					
+					<!-- btn -->
+					<div class="emp_btns">
+						<div class="btn_wrap">
+							<!-- 저장 버튼 -->
+							<button type="submit" class="btn_save"><img src="/imgs/btn/share/btn_save.png"></button>
+							
+							<!-- 취소 버튼 -->
+							<button type="reset" class="btn_cancel"><img src="/imgs/btn/share/btn_cancel.png"></button>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</body>
+</html>
