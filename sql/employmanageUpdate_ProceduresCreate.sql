@@ -23,11 +23,10 @@ employmanageUpdate:BEGIN
 	SET current_datetime = NOW();
     -- 현재 요일을 받음
     SET current_day = DAYOFWEEK(NOW());
-    -- 현재 요일이 금요일이나 일요일이라면 프로시저 종료
-	IF current_day = 1 OR current_day = 7 THEN
-		CLOSE employ_cur;
-		LEAVE employmanageUpdate;
-    END IF;
+    -- 현재 요일이 토요일이나 일요일이라면 프로시저 종료
+	-- IF current_day = 1 OR current_day = 7 THEN
+	-- 	LEAVE employmanageUpdate;
+    -- END IF;
     -- work_history에서 키 최대값을 받는 부분
     SELECT MAX(h_key) INTO max_key FROM work_history;
     -- 키값이 널이면 키값을 0으로 설정
