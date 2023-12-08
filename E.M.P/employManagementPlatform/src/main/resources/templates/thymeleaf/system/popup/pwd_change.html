@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>E.M.P > 비밀번호 변경</title>
+		
+		<!-- 외부 css -->
+		<link rel="stylesheet" href="/css/font.css"> <!-- 폰트 css -->
+		
+		<style>
+			body {
+				background-color: #F2F0EA;
+				
+				margin: 0; padding: 0;
+			}
+			
+			#content {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+						
+				/*자식 중앙 정렬*/
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				
+				overflow: scroll;
+			}
+			
+			.wrap {
+				width: 640px;
+				height: 480px;
+				
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			.top_lbl {
+				font-family: 'TheJamsil5Bold';
+				font-size: 35px;
+				
+				margin: 0 auto;
+				margin-bottom: 25px;
+			}
+			
+			.pwd_now_wrap, .pwd_wrap, .pwd_ck_wrap {
+				width: 575px;
+				height: 50px;
+				
+				margin-bottom: 15px;
+				
+				display: flex;
+				align-items: center;
+				float: left;
+			}
+			
+			.mid_lbl {
+				width: 150px;
+				height: 50px;
+				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			.pwd_cg_f {
+				width: 550px;
+				
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			label {
+				font-family: 'SUITE-Regular';
+				font-size: 20px;
+				
+				text-align: center;
+			}
+			
+			.input_wrap {
+				width: 300px;
+				height: 50px;
+				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			input[type=password] {
+				width: 300px;
+				height: 40px;
+				
+				padding-left: 20px;
+				
+				font-family: 'SUITE-Regular';
+				font-size: 18px;
+			}
+			
+			#btn_ok, #btn_edit {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			#btn_ok {
+				margin-left: 25px;
+			}
+			
+			#btn_edit {
+				margin-top: 10px;
+			}
+			
+			#btn_ok, #btn_ok img {
+				width: 80px;
+				height: 40px;
+			}
+			
+			#btn_edit, #btn_edit img {
+				width: 100px;
+				height: 50px;
+			}
+			
+		</style>
+		
+	</head>
+	
+	<body>
+		<div id="content">
+			
+				
+				<div class="wrap">
+					
+					<!-- 제목 -->
+					<div class="top_lbl">비밀번호 변경</div>
+					
+					<!-- 현재 비번 확인 form -->
+					<form action ="#" method = "post">
+						<!-- 현재 비번 영역 -->
+						<div class="pwd_now_wrap">
+							
+							<div class="mid_lbl">
+								<label for="pwd_now_input">현재 비밀번호: </label>
+							</div>
+							
+							<div class="input_wrap">
+								<input type="password" placeholder="현재 비밀번호를 입력해주세요." id="pwd_now_input">
+							</div>
+							
+							<!-- 확인 버튼 -->
+							<button type="submit" id="btn_ok"><img src="/imgs/btn/share/btn_ok.png"></button>
+							
+						</div>
+					</form>
+					
+					<!-- 비번 변경 form -->
+					<form action ="#" method = "post" class="pwd_cg_f">
+						<!-- 비밀번호 영역 -->
+						<div class="pwd_wrap">
+							
+							<div class="mid_lbl">
+								<label for="pwd_input">변경 비밀번호: </label>
+							</div>
+							
+							<div class="input_wrap">
+								<input type="password" placeholder="변경할 비밀번호를 입력해주세요." id="pwd_input">
+							</div>
+							
+							
+						</div>
+						
+						<!-- 비번 확인 영역 -->
+						<div class="pwd_ck_wrap">
+							
+							<div class="mid_lbl">
+								<label for="pwd_ck_input">비밀번호 확인: </label>
+							</div>
+							
+							<div class="input_wrap">
+								<input type="password" placeholder="비밀번호 확인을 입력해주세요." id="pwd_ck_input">
+							</div>
+							
+						</div>
+						
+						<!-- 수정 버튼 -->
+						<button type="submit" id="btn_edit"><img src="/imgs/btn/share/btn_edit.png"></button>
+					</form>
+					
+				</div>
+				
+				
+		</div>
+	</body>
+</html>
