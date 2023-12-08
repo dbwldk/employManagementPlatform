@@ -123,14 +123,14 @@
 								<tr>
 									<th>성별: </th>
 									<td>
-										<input type="radio" th:if="${unitedEmploy.e_gender == 0}" name="e_gender"checked>
-										<label th:if="${unitedEmploy.e_gender == 0}" name="e_gender">남자</label>
+										<input type="radio" th:if="${unitedEmploy.e_gender == 0}" name="e_gender" value="0" checked>
+										<label th:if="${unitedEmploy.e_gender == 0}">남자</label>
 										
-										<input type="radio" th:if="${unitedEmploy.e_gender == 1}" name="e_gender"checked>
-										<label th:if="${unitedEmploy.e_gender == 1}" name="e_gender">여자</label>
+										<input type="radio" th:if="${unitedEmploy.e_gender == 1}" name="e_gender" value="1" checked>
+										<label th:if="${unitedEmploy.e_gender == 1}">여자</label>
 										
-										<input type="radio" th:if="${unitedEmploy.e_gender == 2}" name="e_gender"checked>
-										<label th:if="${unitedEmploy.e_gender == 2}" name="e_gender">기타</label>
+										<input type="radio" th:if="${unitedEmploy.e_gender == 2}" name="e_gender" value="2" checked>
+										<label th:if="${unitedEmploy.e_gender == 2}">기타</label>
 									</td>
 								</tr>
 								

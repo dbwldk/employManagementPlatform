@@ -1,18 +1,14 @@
 package ac.yuhan.controller;
 
 import java.io.File;
-import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import ac.yuhan.domain.Dept;
@@ -86,9 +82,11 @@ public class NormalController {
 						System.out.println("이미지 못 찾음");
 						findEmploy.setE_pic("/imgs/img/normal.png");
 						sessionUnitedEmploy.setE_pic(findEmploy.getE_pic());
+						session.setAttribute("unitedEmploy", sessionUnitedEmploy);
+						employService.updateEmploy(sessionUnitedEmploy);
 			        }
 				}
-				employService.updateEmploy(sessionUnitedEmploy);
+				
 				model.addAttribute("unitedEmploy", sessionUnitedEmploy);
 	
 				Dept dept = deptService.getDept(sessionUnitedEmploy.getE_dept_num());

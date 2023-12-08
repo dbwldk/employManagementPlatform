@@ -141,9 +141,10 @@ public class AuthController {
 							System.out.println("이미지 못 찾음");
 							findEmploy.setE_pic("/imgs/img/normal.png");
 							unitedEmploy.setE_pic(findEmploy.getE_pic());
+							employService.updateEmploy(unitedEmploy);
 				        }
 					}
-					employService.updateEmploy(unitedEmploy);
+					
 					model.addAttribute("unitedEmploy", unitedEmploy);
 		
 					List<Dept> deptList = deptService.getAllDept();
