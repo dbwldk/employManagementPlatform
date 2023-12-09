@@ -1,10 +1,133 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>E.M.P > 근무 기록</title>
+		
+		<!-- 외부 css -->
+		<link rel="stylesheet" href="/css/font.css"> <!-- 폰트 css -->
+		<link rel="stylesheet" href="/css/header.css"> <!-- 헤더 css -->
+		<link rel="stylesheet" href="/css/work_history.css"> <!-- 근무 기록 css -->
+		<link rel="stylesheet" href="/css/pagination.css"> <!-- 페이지네이션 css -->
 
-</body>
+	</head>
+	
+	<body>
+		<!-- 헤더 -->
+		<div th:replace="/header/header.html :: fragment-header"></div>
+		
+		<div id="content">
+			<div class="wrap">
+				
+				<!-- 설명 -->
+				<div class="top_lbl" th:text="'\'name\' 님의 출퇴근 기록 입니다.'">
+					th:text="'\'' + ${name} + '\' 님의 출퇴근 기록입니다.'"
+				</div>
+				
+				<!-- 검색 wrap -->
+				<div class="search_wrap">
+				
+					<!-- 검색 폼 -->
+					<form action="#" method="post" class="form_search">
+						<!-- 검색 박스 영역 -->
+						<div class="search_box_wrap">
+							<input type="date" 
+									th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
+									th:max="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
+									min="1800-01-01">
+						</div>
+							
+						<div class="search_btn_wrap">
+							<!-- input type=submit과 같은 기능 -->
+							<input type="image" id="btn_search" src="/imgs/btn/share/icon/btn_search.png">
+						</div>
+					</form>
+				
+				</div>
+				
+				<!-- 출퇴근 테이블 wrap -->
+				<div class="work_table_wrap">
+					<!-- 테이블 -->
+					<table class="work_table" border="solid 1px #7c715a" cellpadding="0" cellspacing="0">
+						<!-- 칼럼 -->
+						<tr>
+							<th class="th_datetime">일시</th>
+							<th class="th_sep">구분</th>
+							<th class="th_oher">비고</th>
+						</tr>
+						
+						<tr> <!-- th:each로 데이터 불러오기 --> <!-- 한 페이지 당 10개씩 -->
+
+							<td class="td_datetime">yyyy.MM.dd HH:mm:ss</td><!-- 일시 th:text로 -->
+								
+							<td class="td_sep">상태</td><!-- 구분(출근,퇴근,결근) th:text로, 
+								th:classappend="${구분 == 결근} ? 'away' : ''" (결근이면 글씨 빨갛게 하려고) -->
+									
+							<td class="td_other"><!-- 비고 th:text로 -->
+								비고
+							</td>
+							
+						</tr>
+						
+						<!-- 테이블 모양 확인용, th 적용 후 지우기 -->
+						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
+						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
+						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
+						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
+						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
+						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
+						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
+						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
+						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
+						
+					</table>
+				</div>
+				
+				
+				<!-- 페이지네이션 -->
+				<!-- 컨트롤러에서 넘겨줄 변수 = 시작 페이지 번호, 끝 페이지 번호, 총 페이지 번호, 현재 페이지 번호 -->
+				<div id="pagination"><!-- th:if로 ${page 객체.totalElements != 0} 달아주기 -->
+				
+					<ul>
+						
+						<li class="fir_btn"> <!-- th:if="${현재 페이지 번호 > 1}" -->
+				            <a href="#"> <!-- th:href="@{1페이지로 가는 링크}" -->
+				            	<<
+				           	</a>
+				        </li>
+						
+				        <li class="pv_btn"> <!-- th:if="${시작 페이지 번호 >= 10}" --> 
+				            <a href="#"> <!-- th:href="@{시작 페이지 번호 - 1 페이지로 가는 링크}" -->
+				            	이전
+				           	</a>
+				        </li>
+				        
+				        <li class="page_btn"> <!-- th:each="pageNum : ${#numbers.sequence(시작 페이지 번호, 끝 페이지 번호)}" -->
+				            <a href="#"> <!-- th:href="@{페이지 번호가 ${pageNum}인 페이지 링크}"
+				               th:classappend="${pageNum == 현재 페이지} ? 'current' : ''" (현재 페이지면 굵은 글씨로 만드려고)
+				               th:text="${pageNum}" -->
+				               ${pageNum}
+				            </a>
+				        </li>
+				        
+				        <li class="next_btn"> <!-- th:if="${끝 페이지 번호 < 총 페이지 번호}" -->
+				            <a href="#"> <!-- th:href="@{/끝 페이지 번호 + 1 페이지로 링크}" -->
+				            	다음
+				            </a>
+				        </li>
+				        
+				        <li class="last_btn"> <!-- th:if="${현재 페이지 번호 < 총 페이지 번호}" -->
+				            <a href="#"> <!-- th:href="@{총 페이지 번호인 페이지 링크}" -->
+				            >>
+				           	</a>
+				        </li>
+				        
+				    </ul>
+								
+				</div>
+				<!-- 페이지네이션 end-->
+				
+			</div>
+		</div>
+	</body>
 </html>
