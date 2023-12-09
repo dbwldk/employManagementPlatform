@@ -280,6 +280,8 @@
 				width: 120px;
 				height: 60px;
 				
+				cursor: pointer;
+				
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -293,6 +295,8 @@
 			.btn_pwd {
 				width: 210px;
 				height: 60px;
+				
+				cursor: pointer;
 				
 				display: flex;
 				justify-content: center;
