@@ -29,21 +29,13 @@
 				align-items: center;
 			}
 			
-			.top_lbl {
-				font-family: 'TheJamsil5Bold';
-				font-size: 30px;
-				display: inline-block;
-				
-				margin-top: 50px;
-			}
-			
 			/* 검색 */
 			.search_wrap {
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				
-				margin-top: 20px;
+				margin-top: 60px; /*+20px -> 페이지네이션 마진 때문에 중앙 맞추려고*/
 			}
 			
 			.form_search {
@@ -56,6 +48,7 @@
 				height: 60px;
 			}
 			
+				/* 검색창 */
 			.search_box_wrap {
 				display: flex;
 				justify-content: center;
@@ -70,8 +63,10 @@
 			.search_box_wrap input {
 				font-family: 'SUITE-Regular';
 				font-size: 20px;
+				padding-left: 20px;
 			}
 			
+				/* 검색 버튼 */
 			.search_btn_wrap {
 				display: flex;
 				justify-content: center;
@@ -85,64 +80,12 @@
 				margin-left: 20px;
 			}
 			
-			/*테이블*/
-			
-			.work_table {
+			/*필터 영역*/
+			.filter_wrap {
 				margin-top: 20px;
-				
-				background-color: #F2F0EA;
-				
-				font-family: 'SUITE-Regular';
-				font-size: 20px;
-				
-				border-top-left-radius: 20px 20px;
-				border-top-right-radius: 20px 20px;
-				border-color: #7c715a;
-				
-				box-shadow: 5px 5px 5px #7c715a; /*배경색에 흰색 10% 섞은 색*/
-				
-				text-align: center;
 			}
 			
-			.work_table tr {
-				height: 50px;
-			}
-			
-			.work_table th {
-				background-color: #b6b0a3; /*배경색에 흰색 50% 섞은 색*/
-				
-			}
-			
-				/*th*/
-			.th_datetime {
-				border-top-left-radius: 20px 20px;
-			}
-			
-			.th_oher {
-				border-top-right-radius: 20px 20px;
-			}
-			
-				/*td*/
-			.td_datetime {
-				width: 400px;
-			}
-			
-			.td_sep {
-				width: 200px;
-			}
-			
-			.td_other {
-				width: 500px;
-				height: 50px;
-				
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			
-				/*비고란*/
-			
-			.other_wrap {
+			.form_filter {
 				width: 500px;
 				height: 40px;
 				
@@ -152,31 +95,111 @@
 				align-items: center;
 			}
 			
-			.input_wrap {
-				width: 400px;
+				/*select 박스*/
+			.selec_dept, .selec_pos, .selec_status {
+				width: 100px;
 				height: 40px;
+				
+				font-family: 'SUITE-Regular';
+				font-size: 15px;
+				text-align: center;
+			}
+			
+			.selec_pos, .selec_status {
+				margin-left: 10px;
+			}
+			
+				/*적용 버튼*/
+			#btn_ok {
+				margin-left: 20px;
+			}
+			
+			/*사원 목록 영역*/
+			.emp_table_wrap {
+				margin-top: 40px;
+			}
+			
+			.emp_table {
+				font-family: 'SUITE-Regular';
+				font-size: 20px;
+				text-align: center;
+			}
+			
+			.emp_table tr {
+				height: 65px;
+				background-color: #F2F0EA;
+				
+				border-radius: 20px;
+				box-shadow: 5px 5px 5px #7c715a; /*배경색에 흰색 10% 섞은 색*/
 				
 				display: flex;
 				align-items: center;
+				
+				margin-bottom: 15px;
 			}
 			
-			.input_wrap input {
-				width: 380px;
-				height: 35px;
+				/*td*/
+			.td_name {
+				width: 150px;
 			}
 			
-			#btn_edit {
+			.td_dept {
+				width: 200px;
+			}
+			
+			.td_pos {
+				width: 200px;
+			}
+			
+			.td_btns {
+				width: 250px;
+				
+				border-top-right-radius: 20px;
+				border-bottom-right-radius: 20px;
+								
 				display: flex;
 				justify-content: center;
 				align-items: center;
 			}
 			
-			#btn_edit, #btn_edit img {
+				/* td 내부 버튼 영역 */
+			.btns_wrap {
+				width: 220px;
+				height: 50px;
+				
+				display: flex;
+				float: left;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			/*버튼 css*/
+			#btn_ok, #btn_edit {
+				width: 80px;
+				height: 40px;
+				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			#btn_ok img, #btn_edit img {
 				width: 80px;
 				height: 40px;
 			}
 			
-			/*결근 표시용*/
-			.away {
-				color: red;
+			#btn_history {
+				width: 100px;
+				height: 40px;
+				
+				margin-right: 20px;
+				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			#btn_history img {
+				width: 100px;
+				height: 40px;
 			}
