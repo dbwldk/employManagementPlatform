@@ -8,7 +8,6 @@ import ac.yuhan.domain.Dept;
 
 public interface DeptService {
 	public Dept getDept(Long deptNo);
-	@Modifying(clearAutomatically = true)
 	public void insertDept(Dept dept);
 	@Modifying(clearAutomatically = true)
 	public void deleteDept(Long deptNo);

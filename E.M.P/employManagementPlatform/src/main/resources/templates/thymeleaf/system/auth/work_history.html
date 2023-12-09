@@ -20,21 +20,23 @@
 			<div class="wrap">
 				
 				<!-- 설명 -->
-				<div class="top_lbl" th:text="'\'name\' 님의 출퇴근 기록 입니다.'">
-					th:text="'\'' + ${name} + '\' 님의 출퇴근 기록입니다.'"
+				<div class="top_lbl" th:text="'\'' + ${e_numString} +'\' 님의 출퇴근 기록 입니다.'">
+					<!-- th:text="'\'' + ${name} + '\' 님의 출퇴근 기록입니다.'" -->
 				</div>
 				
 				<!-- 검색 wrap -->
 				<div class="search_wrap">
 				
 					<!-- 검색 폼 -->
-					<form action="#" method="post" class="form_search">
+					<form action="/auth/work_history" method="get" class="form_search">
+						<input type="hidden" th:value="${e_numString}" name="e_num_string">
 						<!-- 검색 박스 영역 -->
 						<div class="search_box_wrap">
 							<input type="date" 
 									th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
 									th:max="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"
-									min="1800-01-01">
+									min="1800-01-01"
+									name="e_history_date_string">
 						</div>
 							
 						<div class="search_btn_wrap">
@@ -56,15 +58,18 @@
 							<th class="th_oher">비고</th>
 						</tr>
 						
-						<tr> <!-- th:each로 데이터 불러오기 --> <!-- 한 페이지 당 10개씩 -->
+						<tr th:each="history : ${work_history}"> <!-- th:each로 데이터 불러오기 --> <!-- 한 페이지 당 10개씩 -->
 							<!-- 비고 전송 폼 -->
-							<form action="#" method="post" class="form_other">
+							<form action="/auth/work_history" method="post" class="form_other">
+								<input type="hidden" th:value="${e_numString}" name="e_num_string">
+								<input type="hidden" th:value="${history.hkey}" name="hkey"> <!-- pk(h_key) th:text로, 이용해서 데이터 넣기 -->
+						
 								
-								<input type="hidden"> <!-- pk(h_key) th:text로, 이용해서 데이터 넣기 -->
+								<td class="td_datetime" th:text="${history.hdate}">yyyy.MM.dd HH:mm:ss</td><!-- 일시 th:text로 -->
 								
-								<td class="td_datetime">yyyy.MM.dd HH:mm:ss</td><!-- 일시 th:text로 -->
-								
-								<td class="td_sep">상태</td><!-- 구분(출근,퇴근,결근) th:text로, 
+								<td class="td_sep" th:classappend="${history.hstate == 0} ? 'away' : ''" th:if="${history.hstate == 0}">결근</td>
+								<td class="td_sep" th:if="${history.hstate == 1}">출근</td>
+								<td class="td_sep" th:if="${history.hstate == 2}">퇴근</td><!-- 구분(출근,퇴근,결근) th:text로, 
 									th:classappend="${구분 == 결근} ? 'away' : ''" (결근이면 글씨 빨갛게 하려고) -->
 									
 								<td class="td_other"><!-- 비고 -->
@@ -72,7 +77,7 @@
 										
 										<!-- input -->
 										<div class="input_wrap">
-											<input type="text"><!-- 비고 th:value로 -->
+											<input type="text" th:value="${history.h_comment}" name="h_comment"><!-- 비고 th:value로 -->
 										</div>
 										
 										<!-- 버튼 -->
@@ -82,21 +87,10 @@
 										
 									</div>
 								</td>
-								
+								<input type="hidden" th:value="${history.hstate}">
 							</form>
 							
 						</tr>
-						
-						<!-- 테이블 모양 확인용, th 적용 후 지우기 -->
-						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
-						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
-						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
-						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
-						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
-						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
-						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
-						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
-						<tr><td>aa</td><td>aa</td><td>aa</td></tr>
 						
 					</table>
 				</div>
@@ -104,38 +98,39 @@
 				
 				<!-- 페이지네이션 -->
 				<!-- 컨트롤러에서 넘겨줄 변수 = 시작 페이지 번호, 끝 페이지 번호, 총 페이지 번호, 현재 페이지 번호 -->
-				<div id="pagination"><!-- th:if로 ${page 객체.totalElements != 0} 달아주기 -->
+				<div id="pagination" th:if="${page.totalElements != 0}"><!-- th:if로 ${page 객체.totalElements != 0} 달아주기 -->
 				
 					<ul>
 						
-						<li class="fir_btn"> <!-- th:if="${현재 페이지 번호 > 1}" -->
-				            <a href="#"> <!-- th:href="@{1페이지로 가는 링크}" -->
+						<li class="fir_btn"  th:if="${page.number > 0}"> <!-- th:if="${현재 페이지 번호 > 1}" -->
+				            <a th:href="@{/auth/work_history(e_num_string=${e_numString}, page=0, size=${page.size})}"> <!-- th:href="@{1페이지로 가는 링크}" -->
 				            	<<
 				           	</a>
 				        </li>
 						
-				        <li class="pv_btn"> <!-- th:if="${시작 페이지 번호 >= 10}" --> 
-				            <a href="#"> <!-- th:href="@{시작 페이지 번호 - 1 페이지로 가는 링크}" -->
+				        <li class="pv_btn" th:if="${page.number - 1 >= 0}"> <!-- th:if="${시작 페이지 번호 >= 10}" --> 
+				            <a th:href="@{/auth/work_history(e_num_string=${e_numString}, page=${page.number -1}, size=${page.size})}"> <!-- th:href="@{시작 페이지 번호 - 1 페이지로 가는 링크}" -->
 				            	이전
 				           	</a>
 				        </li>
 				        
-				        <li class="page_btn"> <!-- th:each="pageNum : ${#numbers.sequence(시작 페이지 번호, 끝 페이지 번호)}" -->
-				            <a href="#"> <!-- th:href="@{페이지 번호가 ${pageNum}인 페이지 링크}"
-				               th:classappend="${pageNum == 현재 페이지} ? 'current' : ''" (현재 페이지면 굵은 글씨로 만드려고)
-				               th:text="${pageNum}" -->
-				               ${pageNum}
+				        <li class="page_btn" th:each="pageNum : ${#numbers.sequence(0, page.getTotalPages() - 1)}">
+				            <a th:href="@{/auth/work_history(e_num_string=${e_numString}, page=${pageNum}, size=${page.size})}"
+				            th:text="${pageNum + 1}"
+				            th:classappend="${pageNum == page.number} ? 'current' :''"
+				            >
+				            
 				            </a>
 				        </li>
 				        
-				        <li class="next_btn"> <!-- th:if="${끝 페이지 번호 < 총 페이지 번호}" -->
-				            <a href="#"> <!-- th:href="@{/끝 페이지 번호 + 1 페이지로 링크}" -->
+				        <li class="next_btn" th:if="${page.number + 1 < page.getTotalPages()}"> <!--  -->
+				           <a th:href="@{/auth/work_history(e_num_string=${e_numString}, page=${page.getNumber() + 1}, size=${page.size})}"> <!-- th:href="@{/끝 페이지 번호 + 1 페이지로 링크}" -->
 				            	다음
 				            </a>
 				        </li>
 				        
-				        <li class="last_btn"> <!-- th:if="${현재 페이지 번호 < 총 페이지 번호}" -->
-				            <a href="#"> <!-- th:href="@{총 페이지 번호인 페이지 링크}" -->
+				        <li class="last_btn" th:if="${ page.number < page.getTotalPages() - 1}"> <!-- th:if="${현재 페이지 번호 < 총 페이지 번호}" -->
+				            <a th:href="@{/auth/work_history(e_num_string=${e_numString}, page=${page.getTotalPages() - 1}, size=${page.size})}">
 				            >>
 				           	</a>
 				        </li>

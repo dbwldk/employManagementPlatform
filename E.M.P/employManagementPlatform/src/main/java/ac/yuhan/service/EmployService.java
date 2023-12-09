@@ -10,7 +10,6 @@ public interface EmployService {
 	public Employ getEmploy(UnitedEmploy employInfo);
 	@Modifying(clearAutomatically = true)
 	public void updateEmploy(UnitedEmploy employInfo);
-	@Modifying(clearAutomatically = true)
 	public void insertEmploy(Employ employ);
 	public Employ createEmploy(UnitedEmploy employInfo); 
 }

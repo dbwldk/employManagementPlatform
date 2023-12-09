@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ import ac.yuhan.domain.Employ_now;
 import ac.yuhan.domain.Employ_state;
 import ac.yuhan.domain.Pos;
 import ac.yuhan.domain.UnitedEmploy;
+import ac.yuhan.domain.Work_history;
 import ac.yuhan.service.DeptService;
 import ac.yuhan.service.EmployService;
 import ac.yuhan.service.Employ_PicSaveStorage;
@@ -28,6 +32,7 @@ import ac.yuhan.service.Employ_nowService;
 import ac.yuhan.service.Employ_stateService;
 import ac.yuhan.service.PosService;
 import ac.yuhan.service.UnitedEmployService;
+import ac.yuhan.service.Work_historyService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -50,6 +55,9 @@ public class AuthController {
 	
 	@Autowired
 	private UnitedEmployService unitedEmployService;
+
+	@Autowired
+	private Work_historyService work_historyService;
 	
 	@Autowired
 	private Employ_PicSaveStorage storageServce;
@@ -71,9 +79,9 @@ public class AuthController {
 				model.addAttribute("posList", posList);
 				return "/auth/emp_add";
 			}
-			return "/login";
+			return "redirect:/work_history";
 		}
-		return "/login";
+		return "redirect:/login";
 	
 	}
 	
@@ -106,13 +114,15 @@ public class AuthController {
 					employ_nowService.insertEmploy_now(unitedEmploy);
 					employ_stateService.insertEmploy_state(unitedEmploy);
 				
-					return "/auth/emp_list";
+					employ_nowService.updateEmploy_now_One(unitedEmploy);
+					work_historyService.insertNewWork_history(unitedEmploy);
+					return "redirect:/auth/emp_list";
 				}
-				return "/auth/emp_list";
+				return "redirect:/auth/emp_list";
 			}
-			return "/login";
+			return "redirect:/work_history";
 		}
-		return "/login";
+		return "redirect:/login";
 	}
 	
 	@GetMapping("/authInfo_edit")
@@ -160,11 +170,11 @@ public class AuthController {
 		
 					return "/auth/info_edit";
 				}
-				return "/auth/emp_list";
+				return "redirect:/auth/emp_list";
 			}
-			return "/login";
+			return "redirect:/work_history";
 		}
-		return "/login";
+		return "redirect:/login";
 	}
 	
 	@PostMapping("/authInfo_edit")
@@ -200,10 +210,92 @@ public class AuthController {
 					employ_stateService.updateEmploy_state(unitedEmploy);
 				}
 				
-				return "/auth/emp_list";
+				return "redirect:/auth/emp_list";
 			}
-			return "/login";
+			return "redirect:/work_history";
 		}
-		return "/login";
+		return "redirect:/login";
+	}
+	
+	@GetMapping("/auth/work_history")
+	public String authWork_history(@RequestParam(value = "e_num_string", required = false) String e_num,
+			@RequestParam( value = "e_history_date_string", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date e_history_date,
+			@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+			HttpSession session,	
+			Model model) {
+		if(session.getAttribute("unitedEmploy") != null || e_num != null)
+		{
+			UnitedEmploy sessionUnitedEmploy = (UnitedEmploy)session.getAttribute("unitedEmploy");
+			if(sessionUnitedEmploy.getE_dept_num() >= 1 && sessionUnitedEmploy.getE_dept_num() <= 9 )
+			{
+				if(e_history_date == null)
+				{
+					Pageable pageable = PageRequest.of(page, size);
+					Page<Work_history> work_history = work_historyService.getWork_historyByE_num(e_num, pageable);
+						if(work_history == null)
+						{
+							return "redirect:/work_history";
+						}
+						
+					model.addAttribute("work_history", work_history.getContent());
+					model.addAttribute("e_numString", e_num);
+					model.addAttribute("page", work_history);
+					System.out.println(work_history.getContent().toString());
+					System.out.println(work_history);
+					return "/auth/work_history";
+				}
+				else
+				{
+					System.out.println(e_history_date.toString());
+					Pageable pageable = PageRequest.of(0, size);
+					Page<Work_history> work_history = work_historyService.getWork_historyByHistoryDate(e_history_date, e_num, pageable);
+					if(work_history == null)
+					{
+						return "redirect:/auth/work_history?e_num_string=" + e_num;
+					}
+
+					model.addAttribute("work_history", work_history.getContent());
+					model.addAttribute("e_numString", e_num);
+					model.addAttribute("page", work_history);
+					System.out.println(work_history.getContent().toString());
+					System.out.println(work_history);
+					return "/auth/work_history";
+				}
+				
+			}
+			return "redirect:/work_history";	
+		}
+		return "redirect:/login";
+	}
+	
+	@PostMapping("/auth/work_history")
+	public String authWork_historyFunc(@RequestParam(value = "e_num_string", required = false) String e_num,
+			Work_history updateWork_history,
+			HttpSession session,	
+			Model model) {
+		if(session.getAttribute("unitedEmploy") != null || e_num != null)
+		{
+			UnitedEmploy sessionUnitedEmploy = (UnitedEmploy)session.getAttribute("unitedEmploy");
+			if(sessionUnitedEmploy.getE_dept_num() >= 1 && sessionUnitedEmploy.getE_dept_num() <= 9 )
+			{
+					Pageable pageable = PageRequest.of(0, 10);
+					work_historyService.updateWork_history_comment(updateWork_history.getHkey(), updateWork_history.getH_comment());
+					Page<Work_history> work_history = work_historyService.getWork_historyByE_num(e_num, pageable);
+						if(work_history == null)
+						{
+							return "redirect:/auth/work_history";
+						}
+						
+					model.addAttribute("work_history", work_history.getContent());
+					model.addAttribute("e_numString", e_num);
+					model.addAttribute("page", work_history);
+					System.out.println(work_history.getContent().toString());
+					System.out.println(work_history);
+					return "redirect:/auth/work_history?e_num_string=" + e_num;
+			}
+			return "redirect:/work_history";	
+		}
+		return "redirect:/login";
 	}
 }

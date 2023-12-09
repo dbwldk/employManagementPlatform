@@ -8,9 +8,15 @@
 		<link rel="stylesheet" href="/css/font.css"> <!-- 폰트 css -->
 		<link rel="stylesheet" href="/css/pwd_change.css"> <!-- 비번 변경 폼 css -->
 		
+		
+			
+ 
+		 	
+
 	</head>
 	
 	<body>
+
 		<div id="content">
 			
 				<div class="wrap">
@@ -19,26 +25,30 @@
 					<div class="top_lbl">비밀번호 변경</div>
 					
 					<!-- 현재 비번 확인 form -->
-					<form action ="#" method = "post">
+					<form action ="/pwd_change" method = "get">
 						<!-- 현재 비번 영역 -->
 						<div class="pwd_now_wrap">
-							
+							<input type="hidden" value="0" name="pwCheck"> 
 							<div class="mid_lbl">
 								<label for="pwd_now_input">현재 비밀번호: </label>
 							</div>
 							
-							<div class="input_wrap">
-								<input type="password" placeholder="현재 비밀번호를 입력해주세요." id="pwd_now_input">
+							<div class="input_wrap" th:if="${pwCheck==0}">
+								<input type="password" placeholder="현재 비밀번호를 입력해주세요." id="pwd_now_input" name="pswd" >
+								
+							</div>
+							<div class="input_wrap" th:if="${pwCheck==1}">
+								<input type="password" id="pwd_now_input" th:value="${pswd}" disabled>
 							</div>
 							
 							<!-- 확인 버튼 -->
-							<button type="submit" id="btn_ok"><img src="/imgs/btn/share/btn_ok.png"></button>
+							<button type="submit" id="btn_ok" th:if="${pwCheck==0}"><img src="/imgs/btn/share/btn_ok.png")></button>
 							
 						</div>
 					</form>
 					
 					<!-- 비번 변경 form -->
-					<form action ="#" method = "post" class="pwd_cg_f">
+					<form action ="/pwd_changed" method = "post" class="pwd_cg_f">
 						<!-- 비밀번호 영역 -->
 						<div class="pwd_wrap">
 							
@@ -47,7 +57,7 @@
 							</div>
 							
 							<div class="input_wrap">
-								<input type="password" placeholder="변경할 비밀번호를 입력해주세요." id="pwd_input">
+								<input type="password" onchange="pwCheck();" placeholder="변경할 비밀번호를 입력해주세요." id="pwd_input" name="e_pswd" th:attr="disabled=${pwCheck == 0}">
 							</div>
 							
 							
@@ -61,17 +71,31 @@
 							</div>
 							
 							<div class="input_wrap">
-								<input type="password" placeholder="비밀번호 확인을 입력해주세요." id="pwd_ck_input">
+								<input type="password" onchange="pwCheck();" placeholder="비밀번호 확인을 입력해주세요." id="pwd_ck_input"  name="e_pswd_check" th:attr="disabled=${pwCheck == 0}">
 							</div>
 							
 						</div>
 						
 						<!-- 수정 버튼 -->
-						<button type="submit" id="btn_edit"><img src="/imgs/btn/share/btn_edit.png"></button>
+						<button type="submit" style="visibility: hidden;" id="btn_edit"><img src="/imgs/btn/share/btn_edit.png" ></button>
 					</form>
 					
 				</div>
 				
 		</div>
+		<script th:inline="javascript" th:utext="${windowCloseScript}"></script>
+			<script>
+			function pwCheck(){
+ 				if(document.getElementById('pwd_input').value!='' && document.getElementById('pwd_ck_input').value!='') {
+			        if(document.getElementById('pwd_input').value==document.getElementById('pwd_ck_input').value) {     
+				        document.getElementById('btn_edit').style.visibility='visible';
+					}       
+					else{
+						document.getElementById('btn_edit').style.visibility='hidden';
+					}             
+				}
+			}
+			
+		</script>
 	</body>
 </html>

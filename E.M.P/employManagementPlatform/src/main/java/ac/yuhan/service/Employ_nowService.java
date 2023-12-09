@@ -7,7 +7,6 @@ import ac.yuhan.domain.UnitedEmploy;
 
 public interface Employ_nowService {
 	public Employ_now getEmploy_now(UnitedEmploy employInfo);
-	@Modifying(clearAutomatically = true)
 	public void insertEmploy_now(UnitedEmploy employInfo);
 	@Modifying(clearAutomatically = true)
 	public void updateEmploy_now_One(UnitedEmploy employInfo);

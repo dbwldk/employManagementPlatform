@@ -55,7 +55,7 @@ public class LoginControoller {
 			unitedEmploy = unitedEmployServie.createUnitedEmploy(findEmploy, employ_now, employ_state);
 			session.setAttribute("unitedEmploy", unitedEmploy);
 			
-			return "/normal/work_history";
+			return "redirect:/work_history";
 		}
 		else
 		{
