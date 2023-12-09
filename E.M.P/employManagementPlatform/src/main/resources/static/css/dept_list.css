@@ -46,6 +46,7 @@
 				margin-top: 25px;
 				
 				border: 3px solid #7c715a;
+				box-shadow: 5px 5px 5px #7c715a; /*배경색에 흰색 10% 섞은 색*/
 				
 				display: flex;
 				justify-content: center;
@@ -60,8 +61,6 @@
 				font-size: 20px;
 				
 				border-color: #7c715a;
-				
-				
 				
 				text-align: center;
 			}
@@ -117,6 +116,8 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				
+				box-shadow: 5px 5px 5px #7c715a; /*배경색에 흰색 10% 섞은 색*/
 				
 				margin-top: 25px;
 				
