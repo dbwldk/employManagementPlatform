@@ -155,7 +155,7 @@
 				width: 600px;
 				height: 400px;
 				
-				border-radius: 5%;
+				border-radius: 20px 20px;
 				
 				background-color: #F2F0EA;
 				box-shadow: 5px 5px 5px #7c715a; /*배경색에 흰색 10% 섞은 색*/
@@ -216,7 +216,7 @@
 				
 				margin-left: 30px;
 				
-				border-radius: 5%;
+				border-radius: 20px 20px;
 				
 				background-color: #F2F0EA;
 				box-shadow: 5px 5px 5px #7c715a; /*배경색에 흰색 10% 섞은 색*/
@@ -290,6 +290,8 @@
 				width: 120px;
 				height: 60px;
 				
+				cursor: pointer;
+				
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -303,6 +305,8 @@
 			.btn_pwd {
 				width: 210px;
 				height: 60px;
+				
+				cursor: pointer;
 				
 				display: flex;
 				justify-content: center;

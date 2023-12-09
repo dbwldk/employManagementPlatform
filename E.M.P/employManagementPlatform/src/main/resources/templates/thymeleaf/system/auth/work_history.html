@@ -57,15 +57,33 @@
 						</tr>
 						
 						<tr> <!-- th:each로 데이터 불러오기 --> <!-- 한 페이지 당 10개씩 -->
-
-							<td class="td_datetime">yyyy.MM.dd HH:mm:ss</td><!-- 일시 th:text로 -->
+							<!-- 비고 전송 폼 -->
+							<form action="#" method="post" class="form_other">
 								
-							<td class="td_sep">상태</td><!-- 구분(출근,퇴근,결근) th:text로, 
-								th:classappend="${구분 == 결근} ? 'away' : ''" (결근이면 글씨 빨갛게 하려고) -->
+								<input type="hidden"> <!-- pk(h_key) th:text로, 이용해서 데이터 넣기 -->
+								
+								<td class="td_datetime">yyyy.MM.dd HH:mm:ss</td><!-- 일시 th:text로 -->
+								
+								<td class="td_sep">상태</td><!-- 구분(출근,퇴근,결근) th:text로, 
+									th:classappend="${구분 == 결근} ? 'away' : ''" (결근이면 글씨 빨갛게 하려고) -->
 									
-							<td class="td_other"><!-- 비고 th:text로 -->
-								비고
-							</td>
+								<td class="td_other"><!-- 비고 -->
+									<div class="other_wrap">
+										
+										<!-- input -->
+										<div class="input_wrap">
+											<input type="text"><!-- 비고 th:value로 -->
+										</div>
+										
+										<!-- 버튼 -->
+										<button type="submit" id="btn_edit">
+											<img src="/imgs/btn/share/btn_edit.png">
+										</button>
+										
+									</div>
+								</td>
+								
+							</form>
 							
 						</tr>
 						
