@@ -16,7 +16,8 @@
 				/*자식 중앙 정렬*/
 				display: flex;
 				justify-content: center;
-				align-items: center;
+				
+				overflow: auto;
 			}
 			
 			/*내부*/
@@ -33,7 +34,7 @@
 				font-size: 30px;
 				display: inline-block;
 				
-				margin-top: 30px;
+				margin-top: 50px;
 			}
 			
 			/* 검색 */

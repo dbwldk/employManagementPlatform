@@ -16,7 +16,8 @@
 				/*자식 중앙 정렬*/
 				display: flex;
 				justify-content: center;
-				align-items: center;
+				
+				overflow: auto;
 			}
 			
 			/*내부*/
@@ -34,7 +35,7 @@
 				justify-content: center;
 				align-items: center;
 				
-				margin-top: 20px; /*페이지네이션 마진 때문에 중앙 맞추려고*/
+				margin-top: 60px; /*+20px -> 페이지네이션 마진 때문에 중앙 맞추려고*/
 			}
 			
 			.form_search {
