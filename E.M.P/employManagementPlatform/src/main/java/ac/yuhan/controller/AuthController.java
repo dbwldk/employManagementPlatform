@@ -22,6 +22,7 @@ import ac.yuhan.domain.Dept;
 import ac.yuhan.domain.Employ;
 import ac.yuhan.domain.Employ_now;
 import ac.yuhan.domain.Employ_state;
+import ac.yuhan.domain.Employ_view;
 import ac.yuhan.domain.Pos;
 import ac.yuhan.domain.UnitedEmploy;
 import ac.yuhan.domain.Work_history;
@@ -30,6 +31,7 @@ import ac.yuhan.service.EmployService;
 import ac.yuhan.service.Employ_PicSaveStorage;
 import ac.yuhan.service.Employ_nowService;
 import ac.yuhan.service.Employ_stateService;
+import ac.yuhan.service.Employ_viewService;
 import ac.yuhan.service.PosService;
 import ac.yuhan.service.UnitedEmployService;
 import ac.yuhan.service.Work_historyService;
@@ -58,6 +60,9 @@ public class AuthController {
 
 	@Autowired
 	private Work_historyService work_historyService;
+	
+	@Autowired
+	private Employ_viewService employ_viewService;
 	
 	@Autowired
 	private Employ_PicSaveStorage storageServce;
@@ -293,6 +298,70 @@ public class AuthController {
 					System.out.println(work_history.getContent().toString());
 					System.out.println(work_history);
 					return "redirect:/auth/work_history?e_num_string=" + e_num;
+			}
+			return "redirect:/work_history";	
+		}
+		return "redirect:/login";
+	}
+	
+	@GetMapping("/emp_list")
+	public String emp_list(
+			@RequestParam(value = "e_name_string", required = false) String e_name,
+			@RequestParam(value = "e_dept_string", defaultValue="0") int e_dept,
+			@RequestParam(value = "e_pos_string", defaultValue="0") int e_pos,
+			@RequestParam(value = "e_s_state_string", defaultValue="0") int e_s_state,
+			@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size,
+			HttpSession session,	
+			Model model) {
+		if(session.getAttribute("unitedEmploy") != null)
+		{
+			UnitedEmploy sessionUnitedEmploy = (UnitedEmploy)session.getAttribute("unitedEmploy");
+			if(sessionUnitedEmploy.getE_dept_num() >= 1 && sessionUnitedEmploy.getE_dept_num() <= 9 )
+			{
+			
+				System.out.println(e_dept);
+				System.out.println(e_s_state);
+				System.out.println(e_pos);
+				if(e_name != null && !e_name.equals(""))
+				{
+					e_dept = 0;
+					e_pos = 0;
+					e_s_state = 0;
+					model.addAttribute("employ_name", e_name);
+					
+				}
+				else
+				{
+					System.out.println("뭐");
+					model.addAttribute("employ_name", "");
+				}
+				Pageable pageable = PageRequest.of(page, size);
+				Page<Employ_view> employ_view = employ_viewService.findEmploy_view(e_name, e_dept, e_pos, e_s_state, pageable);
+
+				if(employ_view == null)
+				{
+					return "redirect:/work_history";
+				}
+
+				model.addAttribute("dept_num", e_dept);
+				model.addAttribute("pos_num", e_pos);
+				model.addAttribute("state_num", e_s_state);
+				
+				model.addAttribute("employ_view", employ_view.getContent());
+				model.addAttribute("page", employ_view);
+				
+				
+				List<Dept> deptList = deptService.getAllDept();
+				List<Pos> posList = posService.getAllPos();
+				model.addAttribute("deptList", deptList);
+				model.addAttribute("posList", posList);
+				System.out.println(employ_view.getContent().toString());
+				System.out.println(e_name);
+				
+				System.out.println(employ_view);
+				
+				return "/auth/emp_list";
 			}
 			return "redirect:/work_history";	
 		}

@@ -3,6 +3,7 @@ package ac.yuhan.domain;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -13,8 +14,10 @@ public class Employ {
 	@Id
 	private String e_num;
 	private String e_name;
-	private Long e_dept;
-	private Long e_pos;
+	@Column(name="e_dept")
+	private Long edept;
+	@Column(name="e_pos")
+	private Long epos;
 	private int e_gender;
 	private String e_phone;
 	private String e_addr;
