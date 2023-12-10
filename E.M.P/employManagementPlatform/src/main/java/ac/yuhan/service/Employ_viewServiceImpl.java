@@ -17,11 +17,10 @@ public class Employ_viewServiceImpl implements Employ_viewService {
 	@Override
 	public Page<Employ_view> findEmploy_view(String searchEname, int searchDept, int searchPos, int searchEsstate,
 			Pageable pageable) {
-		
-		if(searchEname != null)
+		if(searchEname != null && !searchEname.equals(""))
 		{
-			System.out.println("11");
-			Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByenameLikeOrderByEkey(searchEname, pageable);
+			String searchingName = "%" + searchEname + "%";
+			Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByEnameLikeOrderByEkey(searchingName, pageable);
 			return employ_view;
 		}
 		else

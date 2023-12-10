@@ -121,9 +121,9 @@ public class AuthController {
 				
 					employ_nowService.updateEmploy_now_One(unitedEmploy);
 					work_historyService.insertNewWork_history(unitedEmploy);
-					return "redirect:/auth/emp_list";
+					return "redirect:/emp_list";
 				}
-				return "redirect:/auth/emp_list";
+				return "redirect:/emp_list";
 			}
 			return "redirect:/work_history";
 		}
@@ -175,7 +175,7 @@ public class AuthController {
 		
 					return "/auth/info_edit";
 				}
-				return "redirect:/auth/emp_list";
+				return "redirect:/emp_list";
 			}
 			return "redirect:/work_history";
 		}
@@ -215,7 +215,7 @@ public class AuthController {
 					employ_stateService.updateEmploy_state(unitedEmploy);
 				}
 				
-				return "redirect:/auth/emp_list";
+				return "redirect:/emp_list";
 			}
 			return "redirect:/work_history";
 		}
@@ -320,9 +320,6 @@ public class AuthController {
 			if(sessionUnitedEmploy.getE_dept_num() >= 1 && sessionUnitedEmploy.getE_dept_num() <= 9 )
 			{
 			
-				System.out.println(e_dept);
-				System.out.println(e_s_state);
-				System.out.println(e_pos);
 				if(e_name != null && !e_name.equals(""))
 				{
 					e_dept = 0;
@@ -356,10 +353,6 @@ public class AuthController {
 				List<Pos> posList = posService.getAllPos();
 				model.addAttribute("deptList", deptList);
 				model.addAttribute("posList", posList);
-				System.out.println(employ_view.getContent().toString());
-				System.out.println(e_name);
-				
-				System.out.println(employ_view);
 				
 				return "/auth/emp_list";
 			}
