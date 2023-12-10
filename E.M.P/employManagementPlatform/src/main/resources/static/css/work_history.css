@@ -169,6 +169,8 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				
+				cursor: pointer;
 			}
 			
 			#btn_edit, #btn_edit img {
