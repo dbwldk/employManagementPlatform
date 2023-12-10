@@ -77,7 +77,7 @@
 						</div>
 						
 						<!-- 수정 버튼 -->
-						<button type="submit" style="visibility: hidden;" id="btn_edit"><img src="/imgs/btn/share/btn_edit.png" ></button>
+						<button type="submit" style="visibility: hidden;" id="btn_edit" disabled><img src="/imgs/btn/share/btn_edit.png" ></button>
 					</form>
 					
 				</div>
@@ -89,9 +89,11 @@
  				if(document.getElementById('pwd_input').value!='' && document.getElementById('pwd_ck_input').value!='') {
 			        if(document.getElementById('pwd_input').value==document.getElementById('pwd_ck_input').value) {     
 				        document.getElementById('btn_edit').style.visibility='visible';
+						document.getElementById('btn_edit').disabled = false;
 					}       
 					else{
 						document.getElementById('btn_edit').style.visibility='hidden';
+						document.getElementById('btn_edit').disabled = true;
 					}             
 				}
 			}

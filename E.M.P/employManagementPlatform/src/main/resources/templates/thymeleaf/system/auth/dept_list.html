@@ -29,17 +29,17 @@
 					<!-- 테이블 -->
 					<table class="dept_table" border="1px" cellpadding="0" cellspacing="0">
 						
-						<tr><!-- th:each로 부서 데이터 넣기 -->
-							<form action="#" method="post" class="form_dept">
+						<tr th:each="dept : ${deptList}"><!-- th:each로 부서 데이터 넣기 -->
+							<form action="/dept_delete" method="post" class="form_dept">
 								
 								<!-- 부서 번호 영역 -->
-								<input type="hidden"><!-- 번호 th:value 설정 -->
-								<td class="td_num"><!-- 번호 th:text 설정 -->
+								<input type="hidden" th:value="${dept.d_num}" name="dept_num"><!-- 번호 th:value 설정 -->
+								<td class="td_num" th:text="${dept.d_num}"><!-- 번호 th:text 설정 -->
 									00
 								</td>
 								
 								<!-- 부서 이름 영역 -->
-								<td class="td_name"><!-- 이름 th:text 설정 -->
+								<td class="td_name" th:text="${dept.d_name}"><!-- 이름 th:text 설정 -->
 									부서 이름
 								</td>
 								
@@ -53,27 +53,15 @@
 							
 						</tr>
 						
-						<!-- 테이블 테스트용, th:each 후 지우기 -->
-						<tr> <td class="td_num"></td> <td class="td_name"></td> <td class="td_btn"></td> </tr>
-						<tr> <td class="td_num"></td> <td class="td_name"></td> <td class="td_btn"></td> </tr>
-						<tr> <td class="td_num"></td> <td class="td_name"></td> <td class="td_btn"></td> </tr>
-						<tr> <td class="td_num"></td> <td class="td_name"></td> <td class="td_btn"></td> </tr>
-						<tr> <td class="td_num"></td> <td class="td_name"></td> <td class="td_btn"></td> </tr>
-						<tr> <td class="td_num"></td> <td class="td_name"></td> <td class="td_btn"></td> </tr>
-						
-						<tr> <td class="td_num"></td> <td class="td_name"></td> <td class="td_btn"></td> </tr>
-						<tr> <td class="td_num"></td> <td class="td_name"></td> <td class="td_btn"></td> </tr>
-						<tr> <td class="td_num"></td> <td class="td_name"></td> <td class="td_btn"></td> </tr>
-						
 					</table>
 				</div>
 				<!-- 출퇴근 테이블 wrap end -->
 				
 				
 				<!-- + 버튼 누르면 나올 폼 -->
-				<form action="#" method="post" id="form_add">
-					<input type="number" class="inp_num" placeholder="부서 번호">
-					<input type="text" class="inp_name" placeholder="부서 이름">
+				<form action="/dept_add" method="post" id="form_add">
+					<input type="number" class="inp_num" placeholder="부서 번호" name="d_dnum">
+					<input type="text" class="inp_name" placeholder="부서 이름" name="d_dname">
 					<input type="image" class="btn_save" src="/imgs/btn/share/btn_save.png">
 				</form>
 				

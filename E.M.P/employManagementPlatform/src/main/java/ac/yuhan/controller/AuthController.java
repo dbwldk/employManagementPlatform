@@ -1,6 +1,7 @@
 package ac.yuhan.controller;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -309,7 +310,7 @@ public class AuthController {
 			@RequestParam(value = "e_name_string", required = false) String e_name,
 			@RequestParam(value = "e_dept_string", defaultValue="0") int e_dept,
 			@RequestParam(value = "e_pos_string", defaultValue="0") int e_pos,
-			@RequestParam(value = "e_s_state_string", defaultValue="0") int e_s_state,
+			@RequestParam(value = "e_s_state_string", defaultValue="2") int e_s_state,
 			@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "6") int size,
 			HttpSession session,	
@@ -324,13 +325,12 @@ public class AuthController {
 				{
 					e_dept = 0;
 					e_pos = 0;
-					e_s_state = 0;
+					e_s_state = 2;
 					model.addAttribute("employ_name", e_name);
 					
 				}
 				else
 				{
-					System.out.println("뭐");
 					model.addAttribute("employ_name", "");
 				}
 				Pageable pageable = PageRequest.of(page, size);
@@ -359,5 +359,69 @@ public class AuthController {
 			return "redirect:/work_history";	
 		}
 		return "redirect:/login";
+	}
+	
+	@GetMapping("/dept_list")
+	public String dept_list(HttpSession session, Model model){
+		if(session.getAttribute("unitedEmploy") != null)
+		{
+			UnitedEmploy sessionUnitedEmploy = (UnitedEmploy)session.getAttribute("unitedEmploy");
+			if(sessionUnitedEmploy.getE_dept_num() >= 1 && sessionUnitedEmploy.getE_dept_num() <= 9 )
+			{
+				List<Dept> deptList = deptService.getAllDept();
+				model.addAttribute("deptList", deptList);
+				return "/auth/dept_list";
+			}
+			return "redirect:/work_history";	
+		}
+		return "redirect:/login";
+		
+	}
+	
+	@PostMapping("/dept_delete")
+	public String dept_delete(@RequestParam(value="dept_num", defaultValue="0") int d_dnum, HttpSession session, Model model){
+		if(session.getAttribute("unitedEmploy") != null)
+		{
+			UnitedEmploy sessionUnitedEmploy = (UnitedEmploy)session.getAttribute("unitedEmploy");
+			if(sessionUnitedEmploy.getE_dept_num() >= 1 && sessionUnitedEmploy.getE_dept_num() <= 9 )
+			{
+				
+				deptService.deleteDept((long)d_dnum);
+				
+				List<Dept> deptList = deptService.getAllDept();
+				model.addAttribute("deptList", deptList);
+				return "redirect:/dept_list";
+			}
+			return "redirect:/work_history";	
+		}
+		return "redirect:/login";
+		
+	}
+	
+
+	@PostMapping("/dept_add")
+	public String dept_add(
+			@RequestParam(value="d_dnum", defaultValue="0") int d_dnum,
+			@RequestParam(value="d_dname") String d_dname,
+			HttpSession session, Model model){
+		if(session.getAttribute("unitedEmploy") != null)
+		{
+			UnitedEmploy sessionUnitedEmploy = (UnitedEmploy)session.getAttribute("unitedEmploy");
+			if(sessionUnitedEmploy.getE_dept_num() >= 1 && sessionUnitedEmploy.getE_dept_num() <= 9 )
+			{
+				Dept dept = new Dept();
+				dept.setD_name(d_dname);
+				dept.setD_num((long)d_dnum);
+				
+				deptService.insertDept(dept);
+				
+				List<Dept> deptList = deptService.getAllDept();
+				model.addAttribute("deptList", deptList);
+				return "redirect:/dept_list";
+			}
+			return "redirect:/work_history";	
+		}
+		return "redirect:/login";
+		
 	}
 }

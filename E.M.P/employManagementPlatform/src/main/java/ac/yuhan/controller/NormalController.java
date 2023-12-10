@@ -217,4 +217,39 @@ public class NormalController {
 		return "redirect:/login";
 	}
 	
+	@GetMapping("/now_update")
+	public String now_update(HttpSession session, Model model,@RequestParam(value="employ_now" , defaultValue="0") int now) {
+		if(session.getAttribute("unitedEmploy") != null)
+		{
+			UnitedEmploy sessionUnitedEmploy = (UnitedEmploy)session.getAttribute("unitedEmploy");
+
+			sessionUnitedEmploy.setE_now(now);
+			if(now == 1)
+			{
+				employ_nowService.updateEmploy_now_One(sessionUnitedEmploy);
+				work_historyService.updateWork_history(sessionUnitedEmploy);
+			}
+			if(now == 2)
+			{
+				employ_nowService.updateEmploy_now_Two(sessionUnitedEmploy);
+				work_historyService.insertWork_history(sessionUnitedEmploy);
+			}
+			
+			session.setAttribute("unitedEmploy", sessionUnitedEmploy);
+			return "redirect:/work_history";
+		}
+		return "redirect:/login";
+	}
+	
+	@GetMapping("/logOut")
+	public String logOut(HttpSession session) {
+		if(session.getAttribute("unitedEmploy") != null)
+		{
+			session.removeAttribute("unitedEmploy");
+			return "redirect:/login";
+		}
+		return "redirect:/login";
+	}
+	
+	
 }
