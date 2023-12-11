@@ -1,3 +1,4 @@
+DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `employmanageUpdate`()
 employmanageUpdate:BEGIN
     -- 현재 시간과 날짜를 저장하기 위한 변수
@@ -68,4 +69,5 @@ employmanageUpdate:BEGIN
     END LOOP;
 	
     CLOSE employ_cur;
-END
+END$$
+DELIMITER ;
