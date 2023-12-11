@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ac.yuhan.domain.Employ_view;
 
 public interface Employ_viewRepository extends JpaRepository<Employ_view, String> {
-	Page<Employ_view> findEmploy_viewByenameLikeOrderByEkey(String searchEname, Pageable pageable);
+	Page<Employ_view> findEmploy_viewByEnameLikeOrderByEkey(String searchEname, Pageable pageable);
 	
 	Page<Employ_view> findEmploy_viewByeposOrderByEkey(int searchEpos, Pageable pageable);
 	Page<Employ_view> findEmploy_viewByedeptOrderByEkey(int searchEdept, Pageable pageable);

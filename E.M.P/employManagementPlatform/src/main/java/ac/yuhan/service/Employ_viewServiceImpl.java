@@ -17,52 +17,51 @@ public class Employ_viewServiceImpl implements Employ_viewService {
 	@Override
 	public Page<Employ_view> findEmploy_view(String searchEname, int searchDept, int searchPos, int searchEsstate,
 			Pageable pageable) {
-		
-		if(searchEname != null)
+		if(searchEname != null && !searchEname.equals(""))
 		{
-			System.out.println("11");
-			Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByenameLikeOrderByEkey(searchEname, pageable);
+			String searchingName = "%" + searchEname + "%";
+			Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByEnameLikeOrderByEkey(searchingName, pageable);
 			return employ_view;
 		}
 		else
 		{
-			if(searchDept == 0 && searchPos == 0 && searchEsstate == 0)
+			if(searchDept == 0 && searchPos == 0 && searchEsstate == 2)
 			{
 				Page<Employ_view> employ_view = employ_viewRepo.findAll(pageable);
 				return employ_view;
 			}
 			
-			if(searchDept != 0 && searchPos == 0 && searchEsstate == 0)
+			if(searchDept != 0 && searchPos == 0 && searchEsstate == 2)
 			{
 				Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByedeptOrderByEkey(searchDept, pageable);
 				return employ_view;
 			}
-			if(searchDept == 0 && searchPos != 0 && searchEsstate == 0)
+			if(searchDept == 0 && searchPos != 0 && searchEsstate == 2)
 			{
 				Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByeposOrderByEkey(searchPos, pageable);
 				return employ_view;
 			}
-			if(searchDept == 0 && searchPos == 0 && searchEsstate != 0)
+			if(searchDept == 0 && searchPos == 0 && searchEsstate != 2)
 			{
 				Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByesstateOrderByEkey(searchEsstate, pageable);
 				return employ_view;
 			}
-			if(searchDept != 0 && searchPos != 0 && searchEsstate == 0)
+			if(searchDept != 0 && searchPos != 0 && searchEsstate == 2)
 			{
 				Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByeposAndEdeptOrderByEkey(searchPos, searchDept, pageable);
 				return employ_view;
 			}
-			if(searchDept == 0 && searchPos != 0 && searchEsstate != 0)
+			if(searchDept == 0 && searchPos != 0 && searchEsstate != 2)
 			{
 				Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByeposAndEsstateOrderByEkey(searchPos, searchEsstate, pageable);
 				return employ_view;
 			}
-			if(searchDept != 0 && searchPos == 0 && searchEsstate != 0)
+			if(searchDept != 0 && searchPos == 0 && searchEsstate != 2)
 			{
 				Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByesstateAndEdeptOrderByEkey(searchEsstate, searchDept, pageable);
 				return employ_view;
 			}
-			if(searchDept != 0 && searchPos != 0 && searchEsstate != 0)
+			if(searchDept != 0 && searchPos != 0 && searchEsstate != 2)
 			{
 				Page<Employ_view> employ_view = employ_viewRepo.findEmploy_viewByesstateAndEdeptAndEposOrderByEkey(searchEsstate, searchDept, searchPos, pageable);
 				return employ_view;

@@ -181,6 +181,8 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				
+				cursor: pointer;
 			}
 			
 			#btn_ok img, #btn_edit img {
@@ -197,6 +199,8 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				
+				cursor: pointer;
 			}
 			
 			#btn_history img {

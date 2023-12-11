@@ -21,7 +21,7 @@
 				
 				<!-- 로고 -->
 				<div class="header_logo">
-					<a href="#"><img src="/imgs/logo/logo.png"></a>
+					<img src="/imgs/logo/logo.png">
 				</div>
 				
 				<!-- 메뉴 목록 -->
@@ -30,30 +30,40 @@
 						<!-- 근무 -->
 						<li>
 							<div class="menu">
-								<a href="#"><img src="/imgs/header/menu/menu_work.png"></a>
+								<a th:href="@{/work_history}"><img src="/imgs/header/menu/menu_work.png"></a>
 							</div>
 						</li>
 						
 						<!-- 내 정보 -->
 						<li>
 							<div class="menu">
-								<a href="#"><img src="/imgs/header/menu/menu_my_info.png"></a>
+								<a th:href="@{/info_edit}"><img src="/imgs/header/menu/menu_my_info.png"></a>
 							</div>
 						</li>
 						
 						<!-- th:if로 관리자 권한 확인해서 아래 메뉴 표출 -->
 						
 						<!-- 사원 -->
-						<li>
+						<li th:if="${session.unitedEmploy.e_dept_num < 10}">
 							<div class="menu">
-								<a href="#"><img src="/imgs/header/menu/menu_emp.png"></a>
+								<img src="/imgs/header/menu/menu_emp.png">
 							</div>
+							
+							<ul id="dropdown">
+								<li><!-- 사원 추가 -->
+									<a th:href="@{/add}">사원 추가</a>
+								</li>
+								
+								<li><!-- 사원 목록 -->
+									<a th:href="@{/emp_list}">사원 목록</a>
+								</li>
+							</ul>
 						</li>
 						
 						<!-- 부서 -->
-						<li>
+						<li  th:if="${session.unitedEmploy.e_dept_num < 10}">
 							<div class="menu">
-								<a href="#"><img src="/imgs/header/menu/menu_pos.png"></a>
+								<a th:href="@{/dept_list}"><img src="/imgs/header/menu/menu_pos.png"></a>
 							</div>
 						</li>
 					</ul>
@@ -64,22 +74,30 @@
 			
 			<!-- 이름 + 출퇴근 버튼 -->
 			<div class="work_ck">
-				<div class="user_name">name 님,</div> <!-- th:text로 고치기 -->
+				<div class="user_name" th:text="${session.unitedEmploy.e_name} + '님'">name 님,</div> <!-- th:text로 고치기 -->
 				
 				<!-- 출근 버튼 -->
-				<div class="btn_work_ck"> <!-- th:if로 출근 가능일 때 나오게 -->
-					<button onclick="location.href='#'"><img src="/imgs/header/btn/btn_arrived.png"></button>
+				<div class="btn_work_ck" th:if="${session.unitedEmploy.e_now == 0}"> <!-- th:if로 출근 가능일 때 나오게 -->
+					<button th:onclick="|location.href='@{/now_update(employ_now=1)}'|"><img src="/imgs/header/btn/btn_arrived.png"></button>
 				</div>
 				
 				<!-- 퇴근 버튼 -->
-				<div class="btn_work_ck"> <!-- th:if로 퇴근 가능일 때 나오게 -->
-					<button onclick="location.href='#'"><img src="/imgs/header/btn/btn_left.png"></button>
+				<div class="btn_work_ck" th:if="${session.unitedEmploy.e_now == 1}"> <!-- th:if로 퇴근 가능일 때 나오게 -->
+					<button th:onclick="|location.href='@{/now_update(employ_now=2)}'|"><img src="/imgs/header/btn/btn_left.png"></button>
 				</div>
 				
 				<!-- 출근 버튼(disable) -->
-				<div class="btn_work_ck_dis"> <!-- th:if로 퇴근 이후 ~ 당일 나오게 -->
+				<div class="btn_work_ck_dis" th:if="${session.unitedEmploy.e_now == 2}"> <!-- th:if로 퇴근 이후 ~ 당일 나오게 -->
 					<button disabled><img src="/imgs/header/btn/btn_arrived_disable.png"></button>
 				</div>
+				
+				<!-- 드롭다운 -->
+				<ul id="dropdown2">
+					<li><!-- 로그아웃 -->
+						<a th:href="@{/logOut}">로그아웃</a>
+					</li>
+				</ul>
+				
 			</div>
 			
 			

@@ -1,0 +1,166 @@
+@charset "UTF-8";
+@import "font.css";
+
+			body {
+				background-color: #C6C0AE;
+				margin: 0; padding: 0;
+			}
+			
+			#content {
+				position: absolute;
+				top: 80px;
+				left: 0px;
+				width: 100%;
+				height: calc(100% - 80px);
+						
+				/*자식 중앙 정렬*/
+				display: flex;
+				justify-content: center;
+				
+				overflow: auto;
+			}
+			
+			/*내부*/
+			
+			.wrap {
+				display: flex;
+				flex-direction: column;
+				
+				align-items: center;
+			}
+			
+			/* 제목 */
+			.top_lbl {
+				font-family: 'TheJamsil5Bold';
+				font-size: 30px;
+				display: inline-block;
+				
+				margin-top: 60px;
+			}
+			
+			/* dept 테이블 영역 */
+			.dept_table_wrap {
+				width: 525px;
+				height: 360px;
+				
+				margin-top: 25px;
+				
+				border: 3px solid #7c715a;
+				box-shadow: 5px 5px 5px #7c715a; /*배경색에 흰색 10% 섞은 색*/
+				
+				display: flex;
+				justify-content: center;
+				
+				overflow: auto;
+			}
+			
+			.dept_table {
+				background-color: #F2F0EA;
+				
+				font-family: 'SUITE-Regular';
+				font-size: 20px;
+				
+				border-color: #7c715a;
+				
+				text-align: center;
+			}
+			
+			.dept_table tr {
+				height: 50px;
+				
+				display: flex;
+				align-items: center;
+			}
+			
+				/* td */
+			.td_num {
+				width: 150px;
+				height: 50px;
+				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			.td_name {
+				width: 200px;
+				height: 50px;
+				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			.td_btn {
+				width: 150px;
+				height: 50px;
+								
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+				/* td 내부 삭제 버튼 */
+			#btn_del {
+				width: 80px;
+				height: 40px;
+			}
+			
+			/* + 버튼 */
+			#btn_add, #btn_add img {
+				width: 60px;
+				height: 60px;
+			}
+			
+			#btn_add {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				
+				box-shadow: 5px 5px 5px #7c715a; /*배경색에 흰색 10% 섞은 색*/
+				
+				margin-top: 25px;
+				
+				cursor: pointer;
+			}
+			
+			/* + 버튼 누르면 표출 */
+			#form_add {
+				width: 600px;
+				height: 60px;
+				
+				margin-top: 15px;
+				
+				display: none;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			.inp_num {
+				width: 150px;
+				height: 40px;
+				
+				padding-left: 20px;
+				
+				font-family: 'SUITE-Regular';
+				font-size: 20px;
+			}
+			
+			.inp_name {
+				width: 200px;
+				height: 40px;
+				
+				padding-left: 20px;
+				
+				font-family: 'SUITE-Regular';
+				font-size: 20px;
+				
+				margin-left: 10px;
+			}
+			
+			.btn_save {
+				width: 80px;
+				height: 40px;
+				
+				margin-left: 20px;
+			}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>E.M.P > 부서 목록</title>
+		
+		<!-- 외부 css -->
+		<link rel="stylesheet" href="/css/font.css"> <!-- 폰트 css -->
+		<link rel="stylesheet" href="/css/header.css"> <!-- 헤더 css -->
+		<link rel="stylesheet" href="/css/dept_list.css"> <!-- 부서 목록 css -->
+		
+
+	</head>
+	
+	<body>
+		<!-- 헤더 -->
+		<div th:replace="/header/header.html :: fragment-header"></div>
+		
+		<div id="content">
+			<div class="wrap">
+				
+				<!-- 제목 -->
+				<div class="top_lbl">
+					부서 목록
+				</div>
+				
+				<!-- 출퇴근 테이블 wrap -->
+				<div class="dept_table_wrap">
+					<!-- 테이블 -->
+					<table class="dept_table" border="1px" cellpadding="0" cellspacing="0">
+						
+						<tr th:each="dept : ${deptList}"><!-- th:each로 부서 데이터 넣기 -->
+							<form action="/dept_delete" method="post" class="form_dept">
+								
+								<!-- 부서 번호 영역 -->
+								<input type="hidden" th:value="${dept.d_num}" name="dept_num"><!-- 번호 th:value 설정 -->
+								<td class="td_num" th:text="${dept.d_num}"><!-- 번호 th:text 설정 -->
+									00
+								</td>
+								
+								<!-- 부서 이름 영역 -->
+								<td class="td_name" th:text="${dept.d_name}"><!-- 이름 th:text 설정 -->
+									부서 이름
+								</td>
+								
+								<!-- 삭제 버튼 영역 -->
+								<td class="td_btn">
+									<!-- input type=submit과 같은 기능 -->
+									<input type="image" id="btn_del" src="/imgs/btn/share/btn_del.png">
+								</td>
+								
+							</form>
+							
+						</tr>
+						
+					</table>
+				</div>
+				<!-- 출퇴근 테이블 wrap end -->
+				
+				
+				<!-- + 버튼 누르면 나올 폼 -->
+				<form action="/dept_add" method="post" id="form_add">
+					<input type="number" class="inp_num" placeholder="부서 번호" name="d_dnum">
+					<input type="text" class="inp_name" placeholder="부서 이름" name="d_dname">
+					<input type="image" class="btn_save" src="/imgs/btn/share/btn_save.png">
+				</form>
+				
+				<script src="js/add_dept_form.js"></script> <!-- + 버튼 onclick에 쓸 js, 버튼을 누르면 form_add가 나옴 -->
+				
+				<!-- 추가 버튼 -->
+				<button type="button" id="btn_add" onclick="add_dept_form();">
+					<img src="/imgs/btn/share/icon/btn_add.png">
+				</button>
+				
+			</div>
+		</div>
+	</body>
+</html>

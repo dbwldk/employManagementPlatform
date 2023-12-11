@@ -21,7 +21,7 @@
 	align-items: center;
 	}
 	
-#header ul {
+.menu_list > ul {
 	display: flex;
 	
 	list-style: none; /*표 스타일을 없앰*/
@@ -59,6 +59,8 @@
 	width: 80px;
 	height: 80px; /*헤더 높이와 같게*/
 	
+	position: relative; /*하위 메뉴 드롭다운 시키기 위해*/
+	
 	margin-left: 25px;
 			
 	/*자식 중앙 정렬*/
@@ -77,15 +79,67 @@
 	justify-content: center;
 	}
 	
-.menu a {
+.menu:hover {
+				background-color: #7c715a; /*배경색에 흰색 10% 섞은 색*/ /*마우스 가져다대면 색 바뀜*/
+			}
+	
+.menu > a {
 	height: 40px;
+	}
+	
+	/*하위 메뉴*/
+	.menu_list > ul > li > ul, #dropdown2 {
+		display: none; /*hover여야 나타나게하려고 일단 숨김*/
+		position: absolute;
+		top: 100%; /*부모의 100%*/
+		left: 0;
+		background-color: #7c715a; /*배경색에 흰색 10% 섞은 색*/
+		width: 100%; /*부모의 100%*/
+		
+		list-style: none; /*표 스타일을 없앰*/
+		margin: 0;
+		padding: 0;
+	} /*드롭 다운*/
+	
+	.menu_list > ul > li:hover > ul, .work_ck:hover > #dropdown2  {/*마우스 가져다대면 드롭다운 보임*/
+		display: block;
+	}
+	
+		/*드롭다운 메뉴 박스 설정*/
+	.menu_list > ul > li > ul > li, #dropdown2 > li {
+		height: 50px;
+		/*자식 중앙 정렬*/
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	} /*드롭다운*/
+	
+	.menu_list > ul > li > ul > li:hover, #dropdown2 > li:hover {
+		background-color: grey;
+	}
+	
+	.menu_list > ul > li > ul > li > a, #dropdown2 > li > a {
+		font-family: 'GmarketSansMedium'; /*폰트 설정*/
+		font-size: 15px;
+				
+		text-decoration: none;
+		color:#fff;
 	}
 	
 	
 .work_ck {
 	float: left;
+	
+	width: 200px;
+	height: 80px;
+	
+	margin-right: 25px;
+	
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	
+	position: relative; /*하위 메뉴 드롭다운 시키기 위해*/
 }
 
 .user_name {
@@ -112,8 +166,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
-	margin-right: 25px;
+
 }
 
 .btn_work_ck > button, .btn_work_ck_dis > button {
