@@ -1,1 +1,0 @@
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `employ_view` AS select `e`.`e_num` AS `e_num`,`es`.`e_s_state` AS `e_s_state`,`e`.`e_dept` AS `e_dept`,`e`.`e_pos` AS `e_pos`,`e`.`e_name` AS `e_name` from (`employ` `e` join `employ_state` `es` on((`e`.`e_num` = `es`.`e_s_num`)));
