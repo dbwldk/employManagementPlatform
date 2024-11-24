@@ -64,7 +64,7 @@
 ![수정](https://github.com/user-attachments/assets/17717927-46b5-4893-857d-5e9b1b4a0f31)
 <br><br><br>
 
-### 4. 사원 추가 및 삭제
+### 5. 사원 추가 및 삭제
 - **부서**를 추가하거나 삭제함. <br><br>
 ![부서](https://github.com/user-attachments/assets/0e29f80d-5bfa-4751-89db-00c9de071048)
 <br><br><br>
